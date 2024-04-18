@@ -1,0 +1,25 @@
+McCarran International Airport (LAS) - Las Vegas, Nevada, USA
+Cape Town International Airport (CPT) - Cape Town, South Africa
+Hong Kong International Airport (HKG) - Hong Kong
+Dallas/Fort Worth International Airport (DFW) - Dallas/Fort Worth, Texas, USA
+Soekarno–Hatta International Airport (CGK) - Jakarta, Indonesia
+Vancouver International Airport (YVR) - Vancouver, Canada
+Abu Dhabi International Airport (AUH) - Abu Dhabi, United Arab Emirates
+Ben Gurion Airport (TLV) - Tel Aviv, Israel
+Madrid–Barajas Adolfo Suárez Airport (MAD) - Madrid, Spain
+Zurich Airport (ZRH) - Zurich, Switzerland
+King Fahd International Airport (DMM) - Dammam, Saudi Arabia
+Oslo Airport (OSL) - Oslo, Norway
+Domodedovo International Airport (DME) - Moscow, Russia
+San Francisco International Airport (SFO) - San Francisco, California, USA
+Cairo International Airport (CAI) - Cairo, Egypt
+Kuala Lumpur International Airport (KUL) - Kuala Lumpur, Malaysia
+Berlin Brandenburg Airport (BER) - Berlin, Germany
+Auckland Airport (AKL) - Auckland, New Zealand
+Chhatrapati Shivaji Maharaj International Airport (BOM) - Mumbai, India
+Melbourne Airport (MEL) - Melbourne, Australia
+Brussels Airport (BRU) - Brussels, Belgium
+Guarulhos–Governador André Franco Montoro International Airport (GRU) - São Paulo, Brazil
+Hamad International Airport (DOH) - Doha, Qatar
+Istanbul Airport (IST) - Istanbul, Turkey
+Taipei Taoyuan International Airport (TPE) - Taipei, Taiwan

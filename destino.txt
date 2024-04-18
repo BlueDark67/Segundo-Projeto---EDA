@@ -1,0 +1,25 @@
+Incheon International Airport (ICN) - Seoul, South Korea
+Jorge Chávez International Airport (LIM) - Lima, Peru
+Dubai International Airport (DXB) - Dubai, United Arab Emirates
+Suvarnabhumi Airport (BKK) - Bangkok, Thailand
+Leonardo da Vinci–Fiumicino Airport (FCO) - Rome, Italy
+Denver International Airport (DEN) - Denver, Colorado, USA
+Auckland Airport (AKL) - Auckland, New Zealand
+Indira Gandhi International Airport (DEL) - New Delhi, India
+Frankfurt Airport (FRA) - Frankfurt, Germany
+Tan Son Nhat International Airport (SGN) - Ho Chi Minh City, Vietnam
+O'Hare International Airport (ORD) - Chicago, Illinois, USA
+Sydney Airport (SYD) - Sydney, Australia
+Istanbul Airport (IST) - Istanbul, Turkey
+Beijing Capital International Airport (PEK) - Beijing, China
+Heathrow Airport (LHR) - London, United Kingdom
+Changi Airport (SIN) - Singapore
+Charles de Gaulle Airport (CDG) - Paris, France
+Los Angeles International Airport (LAX) - Los Angeles, California, USA
+Narita International Airport (NRT) - Tokyo, Japan
+Amsterdam Airport Schiphol (AMS) - Amsterdam, Netherlands
+Kuala Lumpur International Airport (KUL) - Kuala Lumpur, Malaysia
+John F. Kennedy International Airport (JFK) - New York City, USA
+Toronto Pearson International Airport (YYZ) - Toronto, Canada
+Hamad International Airport (DOH) - Doha, Qatar
+Munich Airport (MUC) - Munich, Germany
