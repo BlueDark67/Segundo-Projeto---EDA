@@ -8,45 +8,32 @@ using namespace std;
 
 int main() {
     srand(time(0));
-    srand(time(0));
-
-    Node* tail = nullptr;
-
-    for (int i = 0; i < 5; i++) {
-        // Cria um avião
-        avioes* novoAviao = criaAvioes();
-
-        // Verifica se o avião foi criado corretamente
-        if (novoAviao == nullptr) {
-            cout << "Erro: O avião não foi criado corretamente." << endl;
-            return 1;
-        }
-
-        // Adiciona passageiros ao avião
-        for (int j = 0; j < novoAviao->qtdPassageiros; j++) {
-            adicionaPassageiroAviao(novoAviao);
-        }
-
-        // Adiciona o avião à fila
-        tail = filaChegada(tail, novoAviao);
+    string resposta;
+    cout << "Escolha uma opcao: \n";
+    cout << "(e)mergencia (o)pcoes (g)ravar \n";
+    //codigo de apresentação dos aviões em chegada/pista/partida
+    avioes * novoAviaoChegada = nullptr;
+    for (int i = 0; i < 10; i++) {
+        novoAviaoChegada = criaAvioes();
+        //passar o codigo que mete na lista para aqui
     }
+    criaEApresenta(novoAviaoChegada);
 
-    // Agora você pode acessar os aviões na ordem em que foram criados
-    Node* head = tail;
-    while (head != nullptr) {
-        avioes* aviao = head->aviao;
-        cout << "Avião: " << aviao->nomeVoo << "Qtd Passageiros: "<< aviao->qtdPassageiros << endl;
+    do {
+        cin >> resposta;
+        if (resposta == "e" || resposta == "E") {// Se a resposta for g
 
-        // Imprime os passageiros do avião
-        passageiros* passageiroHead = aviao->passageiroHead;
-        while (passageiroHead != nullptr) {
-            cout << "Passageiro: " << passageiroHead->primeiroNome << " " << passageiroHead->ultimoNome << endl;
-            passageiroHead = passageiroHead->next;
+        } else if (resposta == "s" || resposta == "S") {// Se a resposta for s
+
+        } else if (resposta == "o" || resposta == "O") { // Se a resposta for O
+
+        } else if (resposta == "g" || resposta == "G") {
+
+        }else{
+            cout << "Escolheu a opcao sair." << endl;
         }
 
-        head = head->next;
-        delete aviao;
-    }
+    }while (resposta != "0");// Enquanto a resposta for diferente de 0
 
 
     return 0;
