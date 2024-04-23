@@ -22,12 +22,6 @@ struct avioes{
     struct avioes * next;
 };
 
-struct Node {
-    avioes* aviao;
-    struct Node* next;
-};
-
-
 string* leFicheiroNomeVoo();
 string* leFicheiroModeloAviao();
 string* leFicheiroOrigem();
@@ -35,15 +29,15 @@ string* leFicheiroDestino();
 
 avioes* adicionaAvioes(avioes* head, string nomeVoo, string modelo, string origem, string destino, int capacidade, int qtdPassageiros);
 avioes* criaAvioes();
-
-Node* filaChegada(Node* tail, avioes* aviao);
-Node* filaPista(Node* tail, avioes* aviao);
-Node* filaPartida(Node* tail, avioes* aviao);
-void criaEApresenta(avioes* aviao);
+avioes* adicionaAviaoFilaChegada(avioes* head, avioes* aviao);
 
 void adicionaPassageiroAviao(avioes* aviao);
-void apresentaInfoTodosAvioes(Node* head);
+void apresentaInfoTodosAvioes(avioes* head);
 void apresentaPassageiros(avioes* aviao);
+void moverAviaoParaPista(avioes*& filaChegada, avioes*& filaPista);
+void adicionarAviaoAproximacao(avioes*& filaChegada);
+void simularCiclo(avioes*& filaChegada, avioes*& filaPista);
 
+int tamanhoFilas(avioes* head);
 
 #endif //SEGUNDO_PROJETO_EDA_AVIAO_H

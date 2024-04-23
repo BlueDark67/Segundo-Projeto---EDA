@@ -78,7 +78,7 @@ avioes* adicionaAvioes(avioes* head, string nomeVoo, string modelo, string orige
     novoAviao->destino = destino;
     novoAviao->capacidade = capacidade;
     novoAviao->qtdPassageiros = qtdPassageiros;
-    novoAviao->next = head;
+    novoAviao->next = nullptr;
     return novoAviao;
 }
 
@@ -98,53 +98,23 @@ avioes* criaAvioes(){
     return novoAviao;
 }
 
-Node* filaChegada(Node* tail, avioes* aviao){
-    Node* novoNode = new Node;
-    novoNode->aviao = aviao;
+avioes* adicionaAviaoFilaChegada(avioes* head, avioes* aviao){
+    avioes* novoNode = new avioes;
+    novoNode = aviao;
     novoNode->next = nullptr;
-    if (tail == nullptr){
-        tail = novoNode;
+    if (head == nullptr){
+        head = novoNode;
     } else {
-        Node* temp = tail;
-        while (temp->next != nullptr){
-            temp = temp->next;
+        avioes* aux = head;
+        while (aux->next != nullptr){
+            aux = aux->next;
         }
-        temp->next = novoNode;
+        aux->next = novoNode;
     }
-    return tail;
+    return head;
 }
 
-Node* filaPista(Node* tail, avioes* aviao){
-    Node* novoNode = new Node;
-    novoNode->aviao = aviao;
-    novoNode->next = nullptr;
-    if (tail == nullptr){
-        tail = novoNode;
-    } else {
-        Node* temp = tail;
-        while (temp->next != nullptr){
-            temp = temp->next;
-        }
-        temp->next = novoNode;
-    }
-    return tail;
-}
 
-Node* filaPartida(Node* tail, avioes* aviao){
-    Node* novoNode = new Node;
-    novoNode->aviao = aviao;
-    novoNode->next = nullptr;
-    if (tail == nullptr){
-        tail = novoNode;
-    } else {
-        Node* temp = tail;
-        while (temp->next != nullptr){
-            temp = temp->next;
-        }
-        temp->next = novoNode;
-    }
-    return tail;
-}
 
 void adicionaPassageiroAviao(avioes* aviao){
     for (int i = 0; i < aviao->capacidade; i++) {
@@ -152,17 +122,17 @@ void adicionaPassageiroAviao(avioes* aviao){
     }
 }
 
-void apresentaInfoTodosAvioes(Node* head) {
-    Node* temp = head;
-    while (temp != nullptr) {
-        avioes* aviao = temp->aviao;
+void apresentaInfoTodosAvioes(avioes* head) {
+    avioes* aux = head;
+    while (aux != nullptr) {
+        avioes* aviao = aux;
         cout << "Nome do Voo: " << aviao->nomeVoo << endl;
         cout << "Modelo: " << aviao->modelo << endl;
         cout << "Origem: " << aviao->origem << endl;
         cout << "Destino: " << aviao->destino << endl;
         apresentaPassageiros(aviao);
         cout <<  endl;
-        temp = temp->next;
+        aux = aux->next;
     }
 }
 
@@ -183,15 +153,68 @@ void apresentaPassageiros(avioes* aviao){
     cout << endl;
 }
 
-void criaEApresenta(avioes* novoAviaoChegada){
-    Node* tail = nullptr;
-    for (int i = 0; i < 10; ++i) {
-        //avioes * novoAviaoChegada = criaAvioes();
-        adicionaPassageiroAviao(novoAviaoChegada);
-        tail = filaChegada(tail, novoAviaoChegada);
+void moverAviaoParaPista(avioes*& filaChegada, avioes*& filaPista) {
+    if (filaChegada != nullptr) {
+        avioes* aviaoAtual = filaChegada;
+        filaChegada = filaChegada->next; // Remover o avião da fila de chegada
+        aviaoAtual->next = nullptr;
+
+        // Adicionar o avião à fila de pista
+        if (filaPista == nullptr) {
+            filaPista = aviaoAtual;
+        } else {
+            aviaoAtual->next = filaPista;
+            filaPista = aviaoAtual;
+        }
+
+        apresentaInfoTodosAvioes(filaPista);
+    } else {
+        cout << "Nenhum aviao em aproximação para mover para a pista." << endl;
     }
-    apresentaInfoTodosAvioes(tail);
 }
+
+// Função para adicionar um avião ao conjunto de aviões em aproximação
+void adicionarAviaoAproximacao(avioes*& filaChegada) {
+    string nomeVoo = "Novo Voo";
+    string modelo = "Modelo";
+    string origem = "Origem";
+    string destino = "Destino";
+    int capacidade = rand() % 6 + 10;
+    int qtdPassageiros = capacidade;
+
+    avioes* novoAviao = adicionaAvioes(nullptr, nomeVoo, modelo, origem, destino, capacidade, qtdPassageiros);
+    novoAviao->next = filaChegada;
+    filaChegada = novoAviao;
+
+    cout << "Novo aviao adicionado à fila de chegada." << endl;
+}
+
+void simularCiclo(avioes*& filaChegada, avioes*& filaPista) {
+    // Mover um avião do conjunto de aviões em aproximação para o conjunto de aviões em pista
+    moverAviaoParaPista(filaChegada, filaPista);
+
+    // Adicionar um avião ao conjunto de aviões em aproximação
+    //adicionarAviaoAproximacao(filaChegada);
+}
+
+int tamanhoFilas(avioes* head){
+    avioes* temp = head;
+    int tamanho = 0;
+    while (temp != nullptr) {
+        avioes* aviao = temp;
+        passageiros* aux = aviao->passageiroHead;
+        while (aux != nullptr) {
+            tamanho++;
+            aux = aux->next;
+        }
+        temp = temp->next;
+    }
+    return tamanho;
+}
+
+
+
+
 
 
 

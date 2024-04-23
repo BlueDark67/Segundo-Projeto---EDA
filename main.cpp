@@ -12,18 +12,25 @@ int main() {
     cout << "Escolha uma opcao: \n";
     cout << "(e)mergencia (o)pcoes (g)ravar \n";
     //codigo de apresentação dos aviões em chegada/pista/partida
-    avioes * novoAviaoChegada = nullptr;
+    avioes * filaChegada = nullptr;
+    avioes * filaPista = nullptr;
     for (int i = 0; i < 10; i++) {
-        novoAviaoChegada = criaAvioes();
-        //passar o codigo que mete na lista para aqui
+       avioes* novoAviaoChegada = criaAvioes();
+       adicionaPassageiroAviao(novoAviaoChegada);
+       filaChegada = adicionaAviaoFilaChegada(filaChegada, novoAviaoChegada);
     }
-    criaEApresenta(novoAviaoChegada);
+    apresentaInfoTodosAvioes(filaChegada);
 
     do {
         cin >> resposta;
         if (resposta == "e" || resposta == "E") {// Se a resposta for g
 
         } else if (resposta == "s" || resposta == "S") {// Se a resposta for s
+            if (tamanhoFilas(filaChegada) <10){
+                cout << "Erro - Nao existem 10 aviões em fila de chegada" << endl;
+            }else{
+                simularCiclo(filaChegada, filaPista);
+            }
 
         } else if (resposta == "o" || resposta == "O") { // Se a resposta for O
 
