@@ -3,7 +3,6 @@
 //
 #include <iostream>
 #include <string>
-#include "aeroporto.h"
 #include "passageiros.h"
 
 using namespace std;
@@ -37,6 +36,7 @@ void apresentaPassageiros(avioes* aviao);
 void moverAviaoParaPista(avioes*& filaChegada, avioes*& filaPista);
 void adicionarAviaoAproximacao(avioes*& filaChegada);
 void simularCiclo(avioes*& filaChegada, avioes*& filaPista);
+void removeNo(avioes** head);
 
 int tamanhoFilas(avioes* head);
 

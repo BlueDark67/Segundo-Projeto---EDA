@@ -10,7 +10,7 @@
 using namespace std;
 
 string* leFicheiroPrimeiroNome(){
-    const int max_linha = 29;
+    const int max_linha = 30;
     auto* conteudoPrimeiroNome = new string[max_linha];
     int linhaPN  =0;
     string textoPN;
@@ -24,7 +24,7 @@ string* leFicheiroPrimeiroNome(){
 }
 
 string* leFicheiroUltimoNome(){
-    const int max_linha = 29;
+    const int max_linha = 30;
     auto* conteudoUltimoNome = new string[max_linha];
     int linhaUN  =0;
     string textoUN;
@@ -38,7 +38,7 @@ string* leFicheiroUltimoNome(){
 }
 
 string* leFicheiroNacionalidade(){
-    const int max_linha = 20;
+    const int max_linha = 21;
     auto* conteudoNacionalidade = new string[max_linha];
     int linhaN  =0;
     string textoN;
@@ -67,7 +67,7 @@ passageiros* criaPassageiros(){
     string* conteudoN = leFicheiroNacionalidade();
     string primeiroNome = conteudoPN[rand()%29];
     string ultimoNome = conteudoUN[rand()%29];
-    string nacionalidade = conteudoN[rand()%20];
+    string nacionalidade = conteudoN[rand()%21];
     int numBilheteAleatorio = rand()%9000000+1000000;
     string numBilhete = "TK" + to_string(numBilheteAleatorio);
     return adicionaPassageiro(nullptr, numBilhete, primeiroNome, ultimoNome, nacionalidade);

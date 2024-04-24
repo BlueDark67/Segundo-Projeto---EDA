@@ -191,23 +191,32 @@ void adicionarAviaoAproximacao(avioes*& filaChegada) {
 
 void simularCiclo(avioes*& filaChegada, avioes*& filaPista) {
     // Mover um avião do conjunto de aviões em aproximação para o conjunto de aviões em pista
-    moverAviaoParaPista(filaChegada, filaPista);
+    if (tamanhoFilas(filaChegada) <10){
+        cout << "Apenas " << tamanhoFilas(filaChegada) << " avioes em chegada." << endl;
+    }else{
+        moverAviaoParaPista(filaChegada, filaPista);
+        cout << "------Avioes em chegada-----\n" << endl;
+        apresentaInfoTodosAvioes(filaChegada);
 
-    // Adicionar um avião ao conjunto de aviões em aproximação
-    //adicionarAviaoAproximacao(filaChegada);
+    }
+
+}
+
+void removeNo(avioes** head){
+    if(*head == nullptr){
+        cout << "Lista vazia" << endl;
+    }
+    avioes* aux = *head;
+    *head = aux->next;
+    delete aux;
 }
 
 int tamanhoFilas(avioes* head){
-    avioes* temp = head;
+    avioes* aux = head;
     int tamanho = 0;
-    while (temp != nullptr) {
-        avioes* aviao = temp;
-        passageiros* aux = aviao->passageiroHead;
-        while (aux != nullptr) {
-            tamanho++;
-            aux = aux->next;
-        }
-        temp = temp->next;
+    while (aux != nullptr) {
+        tamanho++;
+        aux = aux->next;
     }
     return tamanho;
 }
