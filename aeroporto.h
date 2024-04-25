@@ -12,6 +12,7 @@ using namespace std;
 #define SEGUNDO_PROJETO_EDA_AEROPORTO_H
 void GuardaDadosAeroporto( avioes *&filaChegada, avioes *& filaPista, avioes *& filaPartida);
 void carregarDadosAeroporto(avioes * filaChegada, avioes*& filaPista);
+void menuG(avioes* filaChegada, avioes* filaPista, avioes* filaPartida);
 
 int contarLinhas(string nomeFicheiro);
 

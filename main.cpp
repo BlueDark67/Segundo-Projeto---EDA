@@ -7,6 +7,10 @@
 
 using namespace std;
 
+/*
+ * Grupo 13: Membro 1 - 2124623; Membro 2 -2109923; Membro 3 - 2099223; Membro 4 -2144323;
+ * */
+
 int main(int argc, char const* argv[]) {
     srand(time(0));
     string resposta;
@@ -39,17 +43,7 @@ int main(int argc, char const* argv[]) {
             }
 
         } else if (resposta == "g" || resposta == "G") {
-            string resposta2;
-            do {
-                cout << "Escolha uma opcao: \n" << endl;
-                cout << "(c)arregar (g)ravar \n" << endl;
-                cin >> resposta2;
-                if (resposta2 == "c" || resposta2 == "C") {
-                    carregarDadosAeroporto(filaChegada, filaPista);
-                } else if (resposta2 == "g" || resposta2 == "G") {
-                    GuardaDadosAeroporto(filaChegada, filaPista, filaPartida);
-                }
-            } while (resposta2 != "0");
+            menuG(filaChegada, filaPista, filaPartida);
         }else{
             cout << "Escolheu a opcao sair." << endl;
         }

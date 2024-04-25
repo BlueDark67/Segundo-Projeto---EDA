@@ -189,3 +189,18 @@ avioes* leFicheiroChegada(string nomeFicheiro){
     }
     return aviao2;
 }
+
+void menuG(avioes* filaChegada, avioes* filaPista, avioes* filaPartida){
+    string resposta2;
+    do {
+        cout << "Escolha uma opcao: \n" << endl;
+        cout << "(c)arregar (g)ravar \n" << endl;
+        cin >> resposta2;
+        if (resposta2 == "c" || resposta2 == "C") {
+            carregarDadosAeroporto(filaChegada, filaPista);
+        } else if (resposta2 == "g" || resposta2 == "G") {
+            GuardaDadosAeroporto(filaChegada, filaPista, filaPartida);
+        }
+    } while (resposta2 != "0");
+}
+

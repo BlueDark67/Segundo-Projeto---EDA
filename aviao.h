@@ -35,10 +35,10 @@ void adicionaPassageiroAviao(avioes* aviao);
 void apresentaInfoTodosAvioes(avioes* head);
 void apresentaPassageiros(avioes* aviao);
 void moverAviaoParaPista(avioes*& filaChegada, avioes*& filaPista);
-void adicionarAviaoAproximacao(avioes*& filaChegada);
 void moverAviaoParaPartida(avioes*&filaPista,avioes *&filaPartida);
 void simularCiclo(avioes*& filaChegada, avioes*& filaPista, avioes *& filaPartida);
 void removeNo(avioes** head);
+void moverAviaoParaEliminar(avioes*& filaPista, avioes*& filaEliminar);
 
 int tamanhoFilas(avioes* head);
 
