@@ -87,8 +87,3 @@ passageiros* adicionaPassageiroFila(passageiros* head, passageiros* passageiro) 
         return head;
     }
 }
-
-
-
-
-

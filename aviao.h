@@ -1,3 +1,4 @@
+
 //
 // Created by guilh on 18/04/2024.
 //
@@ -35,7 +36,8 @@ void apresentaInfoTodosAvioes(avioes* head);
 void apresentaPassageiros(avioes* aviao);
 void moverAviaoParaPista(avioes*& filaChegada, avioes*& filaPista);
 void adicionarAviaoAproximacao(avioes*& filaChegada);
-void simularCiclo(avioes*& filaChegada, avioes*& filaPista);
+void moverAviaoParaPartida(avioes*&filaPista,avioes *&filaPartida);
+void simularCiclo(avioes*& filaChegada, avioes*& filaPista, avioes *& filaPartida);
 void removeNo(avioes** head);
 
 int tamanhoFilas(avioes* head);

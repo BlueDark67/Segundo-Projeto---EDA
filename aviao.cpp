@@ -171,6 +171,10 @@ void moverAviaoParaPista(avioes*& filaChegada, avioes*& filaPista) {
     } else {
         cout << "Nenhum aviao em aproximação para mover para a pista." << endl;
     }
+    avioes* novoAviaoChegada = criaAvioes();
+    adicionaPassageiroAviao(novoAviaoChegada);
+    filaChegada = adicionaAviaoFilaChegada(filaChegada, novoAviaoChegada);
+
 }
 
 // Função para adicionar um avião ao conjunto de aviões em aproximação
@@ -189,18 +193,49 @@ void adicionarAviaoAproximacao(avioes*& filaChegada) {
     cout << "Novo aviao adicionado à fila de chegada." << endl;
 }
 
-void simularCiclo(avioes*& filaChegada, avioes*& filaPista) {
+void moverAviaoParaPartida(avioes*& filaPista, avioes*& filaPartida) {
+    int capacidadefilaPista = 7;
+    int numavioes;
+    if (filaPista != nullptr) {
+        avioes* aviaoAtual = filaPista;
+        filaPista = filaPista->next; // Remover o avião da fila de Pista
+        aviaoAtual->next = nullptr;
+
+        avioes* aux = filaPista;
+        while (aux != nullptr) {
+            numavioes++;
+            aux = aux->next;
+        }
+        // Adicionar o avião à fila de partida
+        if (filaPartida == NULL && numavioes < capacidadefilaPista) {
+            filaPartida = aviaoAtual;
+        } else {
+            aviaoAtual->next = filaPartida;
+            filaPartida = aviaoAtual;
+        }
+
+        apresentaInfoTodosAvioes(filaPartida);
+    } else {
+        cout << "Nenhum aviao em pista para Partir ." << endl;
+    }
+}
+
+
+void simularCiclo(avioes*& filaChegada, avioes*& filaPista, avioes *& filaPartida) {
     // Mover um avião do conjunto de aviões em aproximação para o conjunto de aviões em pista
     if (tamanhoFilas(filaChegada) <10){
         cout << "Apenas " << tamanhoFilas(filaChegada) << " avioes em chegada." << endl;
     }else{
+        cout << "-----Avioes a Partir-----\n" << endl;
+        moverAviaoParaPartida(filaPista,filaPartida);
+        cout << "-----Avioes em Pista----- \n" << endl;
         moverAviaoParaPista(filaChegada, filaPista);
         cout << "------Avioes em chegada-----\n" << endl;
         apresentaInfoTodosAvioes(filaChegada);
 
     }
-
 }
+
 
 void removeNo(avioes** head){
     if(*head == nullptr){
@@ -220,7 +255,6 @@ int tamanhoFilas(avioes* head){
     }
     return tamanho;
 }
-
 
 
 

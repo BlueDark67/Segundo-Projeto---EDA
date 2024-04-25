@@ -16,11 +16,11 @@ void GuardaDadosAeroporto( avioes *&filaChegada, avioes *& filaPista, avioes *& 
     if (arquivoChegada.is_open()) {
         for (int i = 0; i < tamanhoC; i++) {
             arquivoChegada << filaChegada->nomeVoo << ","<< filaChegada->modelo << "," << filaChegada->origem << ","
-            << filaChegada->destino << "," << filaChegada->capacidade << "," << filaChegada->qtdPassageiros << endl;
+                           << filaChegada->destino << "," << filaChegada->capacidade << "," << filaChegada->qtdPassageiros << endl;
             passageiros *passageiro = filaChegada->passageiroHead;
             while (passageiro != nullptr) {
                 arquivoChegada << passageiro->numBilhete  << "," << passageiro->primeiroNome  <<
-                "," << passageiro->ultimoNome <<"," << passageiro->nacionalidade <<endl;
+                               "," << passageiro->ultimoNome <<"," << passageiro->nacionalidade <<endl;
                 passageiro = passageiro->next;
             }
             arquivoChegada << endl;
@@ -37,11 +37,11 @@ void GuardaDadosAeroporto( avioes *&filaChegada, avioes *& filaPista, avioes *& 
     if (arquivoPista.is_open()) {
         for (int i = 0; i < tamanhoP; i++) {
             arquivoPista << filaPista->nomeVoo << ","<< filaPista->modelo << "," << filaPista->origem << ","
-                           << filaPista->destino << "," << filaPista->capacidade << "," << filaPista->qtdPassageiros << endl;
+                         << filaPista->destino << "," << filaPista->capacidade << "," << filaPista->qtdPassageiros << endl;
             passageiros *passageiro = filaPista->passageiroHead;
             while (passageiro != nullptr) {
                 arquivoPista << passageiro->numBilhete  << "," << passageiro->primeiroNome  <<
-                               "," << passageiro->ultimoNome <<"," << passageiro->nacionalidade <<endl;
+                             "," << passageiro->ultimoNome <<"," << passageiro->nacionalidade <<endl;
                 passageiro = passageiro->next;
             }
             arquivoPista << endl;

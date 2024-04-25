@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include "aeroporto.h"
 #include "aviao.h"
@@ -16,9 +17,9 @@ int main(int argc, char const* argv[]) {
     avioes * filaPista = nullptr;
     avioes * filaPartida = nullptr;
     for (int i = 0; i < 10; i++) {
-       avioes* novoAviaoChegada = criaAvioes();
-       adicionaPassageiroAviao(novoAviaoChegada);
-       filaChegada = adicionaAviaoFilaChegada(filaChegada, novoAviaoChegada);
+        avioes* novoAviaoChegada = criaAvioes();
+        adicionaPassageiroAviao(novoAviaoChegada);
+        filaChegada = adicionaAviaoFilaChegada(filaChegada, novoAviaoChegada);
     }
     apresentaInfoTodosAvioes(filaChegada);
 
@@ -27,7 +28,7 @@ int main(int argc, char const* argv[]) {
         if (resposta == "e" || resposta == "E") {// Se a resposta for g
 
         } else if (resposta == "s" || resposta == "S") {// Se a resposta for s
-            simularCiclo(filaChegada, filaPista);
+            simularCiclo(filaChegada, filaPista ,filaPartida);
         } else if (resposta == "o" || resposta == "O") { // Se a resposta for O
             if(argc == 1) {
                 cout << "Nao foram passados argumentos." << endl;
