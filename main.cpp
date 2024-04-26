@@ -38,7 +38,8 @@ int main(int argc, char const* argv[]) {
                 cout << "Nao foram passados argumentos." << endl;
             }else{
                 string fChegada = argv[1];
-                avioes* aviao2 = leFicheiroChegada(fChegada);
+                string fPassageirosChegada = argv[4];
+                avioes* aviao2 = leFicheiroChegada(fChegada, fPassageirosChegada);
                 apresentaInfoTodosAvioes(aviao2);
             }
 

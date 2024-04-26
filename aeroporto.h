@@ -16,5 +16,5 @@ void menuG(avioes* filaChegada, avioes* filaPista, avioes* filaPartida);
 
 int contarLinhas(string nomeFicheiro);
 
-avioes* leFicheiroChegada(string nomeFicheiro);
+avioes* leFicheiroChegada(string nome1, string nome2);
 #endif //SEGUNDO_PROJETO_EDA_AEROPORTO_H
