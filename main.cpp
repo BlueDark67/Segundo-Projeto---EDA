@@ -27,6 +27,7 @@ int main(int argc, char const* argv[]) {
     }
     apresentaInfoTodosAvioes(filaChegada);
 
+
     do {
         cin >> resposta;
         if (resposta == "e" || resposta == "E") {// Se a resposta for g
@@ -34,14 +35,6 @@ int main(int argc, char const* argv[]) {
         } else if (resposta == "s" || resposta == "S") {// Se a resposta for s
             simularCiclo(filaChegada, filaPista ,filaPartida);
         } else if (resposta == "o" || resposta == "O") { // Se a resposta for O
-            if(argc == 1) {
-                cout << "Nao foram passados argumentos." << endl;
-            }else{
-                string fChegada = argv[1];
-                string fPassageirosChegada = argv[4];
-                avioes* aviao2 = leFicheiroChegada(fChegada, fPassageirosChegada);
-                apresentaInfoTodosAvioes(aviao2);
-            }
 
         } else if (resposta == "g" || resposta == "G") {
             menuG(filaChegada, filaPista, filaPartida);

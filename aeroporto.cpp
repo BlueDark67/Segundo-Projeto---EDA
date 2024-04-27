@@ -20,7 +20,7 @@ void GuardaDadosAeroporto( avioes *&filaChegada, avioes *& filaPista, avioes *& 
     if (arquivoChegada.is_open()) {
         for (int i = 0; i < tamanhoC; i++) {
             arquivoChegada << filaChegada->nomeVoo << "|"<< filaChegada->modelo << "|" << filaChegada->origem << "|"
-                           << filaChegada->destino << "|" << filaChegada->capacidade << "|" << filaChegada->qtdPassageiros <<"|"<<  endl;
+                           << filaChegada->destino << "|" << filaChegada->capacidade << "|" << filaChegada->qtdPassageiros <<"|\n";
             if(arquivoPassageirosChegada.is_open()){
                 for (int j = 0; j < filaChegada->qtdPassageiros; j++) {
                     arquivoPassageirosChegada << filaChegada->passageiroHead->numBilhete << "|"<< filaChegada->passageiroHead->primeiroNome <<
@@ -34,6 +34,7 @@ void GuardaDadosAeroporto( avioes *&filaChegada, avioes *& filaPista, avioes *& 
             filaChegada = filaChegada->next;
         }
         arquivoChegada.close();
+        arquivoPassageirosChegada.close();
         cout << "Dados dos avioes em chegada foram gravados com sucesso." << endl;
         cout << "Dados dos passageiros dos avioes em chegada foram gravados com sucesso." << endl;
     } else {
@@ -158,41 +159,52 @@ avioes* leFicheiroChegada(string nome1, string nome2){
     string nomeFicheiro2 = nome2; //PassageirosChegada
     ifstream ficheiro(nomeFicheiro1);
     ifstream ficheiro2(nomeFicheiro2);
-    if(ficheiro.is_open()){
-        int i=0;
-        while (getline(ficheiro, nomeVoo, '|')) {
-            aviaoRetiradaoTXT->nomeVoo = nomeVoo;
-            getline(ficheiro, modelo, '|');
-            aviaoRetiradaoTXT->modelo = modelo;
-            getline(ficheiro, origem, '|');
-            aviaoRetiradaoTXT->origem = origem;
-            getline(ficheiro, destino, '|');
-            aviaoRetiradaoTXT->destino = destino;
-            string aux; //Pois getline nao consegue usar int diretamente
-            getline(ficheiro, aux, '|');
-            int aux2 = stoi(aux);
-            getline(ficheiro, aux, '|');
-            aviaoRetiradaoTXT->capacidade = aux2;
-            aviaoRetiradaoTXT->qtdPassageiros = aux2;
-            aviaoRetiradaoTXT->next = nullptr;
+    if(ficheiro.is_open()) {
+        int i = 0;
+        if (i < contarLinhas(nomeFicheiro1)) {
+            while (getline(ficheiro, nomeVoo, '|')) {
+                aviaoRetiradaoTXT->nomeVoo = nomeVoo;
+                getline(ficheiro, modelo, '|');
+                aviaoRetiradaoTXT->modelo = modelo;
+                getline(ficheiro, origem, '|');
+                aviaoRetiradaoTXT->origem = origem;
+                getline(ficheiro, destino, '|');
+                aviaoRetiradaoTXT->destino = destino;
+                string aux; //Pois getline nao consegue usar int diretamente
+                string aux1;
+                getline(ficheiro, aux, '|');
+                int aux2 = stoi(aux);
+                cout << aux2 << endl;
+                aviaoRetiradaoTXT->capacidade = aux2;
+                getline(ficheiro, aux1, '|');
+                int aux3 = stoi(aux1);
+                cout << aux3 << endl;
+                aviaoRetiradaoTXT->qtdPassageiros = aux3;
+                aviaoRetiradaoTXT->next = nullptr;
 
-            if(ficheiro2.is_open()) {
-                for (int j = 0; j < aviaoRetiradaoTXT->qtdPassageiros; j++) {
-                    getline(ficheiro2, numBilhete, '|');
-                    getline(ficheiro2, primeiroNome, '|');
-                    getline(ficheiro2, ultimoNome, '|');
-                    getline(ficheiro2, nacionalidade, '|');
-                    aviaoRetiradaoTXT->passageiroHead = adicionaPassageiro(aviaoRetiradaoTXT->passageiroHead,numBilhete, primeiroNome, ultimoNome,nacionalidade);
+                if (ficheiro2.is_open()) {
+                    for (int j = 0; j < aviaoRetiradaoTXT->qtdPassageiros; j++) {
+                        getline(ficheiro2, numBilhete, '|');
+                        getline(ficheiro2, primeiroNome, '|');
+                        getline(ficheiro2, ultimoNome, '|');
+                        getline(ficheiro2, nacionalidade, '|');
+                        aviaoRetiradaoTXT->passageiroHead = adicionaPassageiro(aviaoRetiradaoTXT->passageiroHead,
+                                                                               numBilhete, primeiroNome, ultimoNome,
+                                                                               nacionalidade);
+                    }
+                } else {
+                    cout << "Erro ao abrir o arquivo para ler os dados dos passageiros dos avioes em chegada." << endl;
                 }
-            }else{
-                cout << "Erro ao abrir o arquivo para ler os dados dos passageiros dos avioes em chegada." << endl;
+                i++;
             }
-            i++;
-            }
-        }else{
+        }
+        } else {
             cout << "Erro ao abrir o arquivo para ler os dados dos avioes em chegada." << endl;
         }
+        ficheiro.close();
+        return aviaoRetiradaoTXT;
 }
+
 
 
 void menuG(avioes* filaChegada, avioes* filaPista, avioes* filaPartida){
@@ -208,4 +220,3 @@ void menuG(avioes* filaChegada, avioes* filaPista, avioes* filaPartida){
         }
     } while (resposta2 != "0");
 }
-
