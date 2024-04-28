@@ -105,6 +105,7 @@ void adicionaPassageiroAviao(avioes* aviao){
     }
 }
 
+
 void apresentaInfoTodosAvioes(avioes* head) {
     avioes* aux = head;
     while (aux != nullptr) {
@@ -136,6 +137,22 @@ void apresentaPassageiros(avioes* aviao){
     cout << endl;
 }
 avioes* adicionaAviaoFilaChegada(avioes* head, avioes* aviao){
+    avioes* novoNode = new avioes;
+    novoNode = aviao;
+    novoNode->next = nullptr;
+    if (head == nullptr){
+        head = novoNode;
+    } else {
+        avioes* aux = head;
+        while (aux->next != nullptr){
+            aux = aux->next;
+        }
+        aux->next = novoNode;
+    }
+    return head;
+}
+
+avioes* adicionaAviaoFilaChegada2(avioes*& head, avioes* aviao){
     avioes* novoNode = new avioes;
     novoNode = aviao;
     novoNode->next = nullptr;
@@ -230,19 +247,25 @@ void moverAviaoParaEliminar(avioes*& filaPista, avioes*& filaEliminar) {
 
 
 void simularCiclo(avioes*& filaChegada, avioes*& filaPista, avioes *& filaPartida) {
-    if(tamanhoFilas(filaChegada)== 10) {
-        if (tamanhoFilas(filaPista) == 7) {
-            cout << "-----Avioes a Partir-----\n" << endl;
-            moverAviaoParaPartida(filaPista,filaPartida);
+    cout << "----------------------------" << endl;
+    cout << "-------Avioes em chegada------" << endl;
+    cout << "----------------------------" << endl;
+    apresentaInfoTodosAvioes(filaChegada);
+    if(tamanhoFilas(filaChegada) == 10){
+        cout << "----------------------------" << endl;
+        cout << "------Avioes em Pista-------" << endl;
+        cout << "----------------------------" << endl;
+        moverAviaoParaPista(filaChegada, filaPista);
+        if(tamanhoFilas(filaPista) == 7){
+            cout << "----------------------------" << endl;
+            cout << "------Avioes a Partir-------" << endl;
+            cout << "----------------------------" << endl;
+            moverAviaoParaPartida(filaPista, filaPartida);
             if(tamanhoFilas(filaPartida) == 5){
                 avioes* filaEliminar = nullptr;
                 moverAviaoParaEliminar(filaPartida, filaEliminar);
             }
         }
-        cout << "-----Avioes em Pista----- \n" << endl;
-        moverAviaoParaPista(filaChegada, filaPista);
-        cout << "------Avioes em chegada-----\n" << endl;
-        apresentaInfoTodosAvioes(filaChegada);
     }
 
 

@@ -9,7 +9,7 @@ using namespace std;
 
 /*
  * Grupo 13: Membro 1 - 2124623; Membro 2 -2109923; Membro 3 - 2099223; Membro 4 -2144323;
- * */
+ */
 
 int main(int argc, char const* argv[]) {
     srand(time(0));
@@ -27,8 +27,6 @@ int main(int argc, char const* argv[]) {
         filaChegada = adicionaAviaoFilaChegada(filaChegada, novoAviaoChegada);
     }
     apresentaInfoTodosAvioes(filaChegada);
-
-
     do {
         cin >> resposta;
         if (resposta == "e" || resposta == "E") {// Se a resposta for g
@@ -41,7 +39,10 @@ int main(int argc, char const* argv[]) {
                 simularCiclo(filaChegada, filaPista ,filaPartida);
             }
         } else if (resposta == "o" || resposta == "O") { // Se a resposta for O
-
+            string nome1 = argv[1];
+            string nome2 = argv[4];
+            avioes* filaRetiradaC = leFicheiroChegada(nome1,nome2);
+            apresentaInfoTodosAvioes(filaRetiradaC);
         } else if (resposta == "g" || resposta == "G") {
             menuG(filaChegada, filaPista, filaPartida);
         }else{

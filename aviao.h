@@ -30,6 +30,7 @@ string* leFicheiroDestino();
 avioes* adicionaAvioes(avioes* head, string nomeVoo, string modelo, string origem, string destino, int capacidade, int qtdPassageiros);
 avioes* criaAvioes();
 avioes* adicionaAviaoFilaChegada(avioes* head, avioes* aviao);
+avioes* adicionaAviaoFilaChegada2(avioes*& head, avioes* aviao);
 
 void adicionaPassageiroAviao(avioes* aviao);
 void apresentaInfoTodosAvioes(avioes* head);
@@ -39,6 +40,7 @@ void moverAviaoParaPartida(avioes*&filaPista,avioes *&filaPartida);
 void simularCiclo(avioes*& filaChegada, avioes*& filaPista, avioes *& filaPartida);
 void removeNo(avioes** head);
 void moverAviaoParaEliminar(avioes*& filaPista, avioes*& filaEliminar);
+void adicionaPassageiroAviao2(avioes* aviao, passageiros* passageiro);
 
 int tamanhoFilas(avioes* head);
 
