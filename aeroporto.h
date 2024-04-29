@@ -11,10 +11,12 @@ using namespace std;
 #ifndef SEGUNDO_PROJETO_EDA_AEROPORTO_H
 #define SEGUNDO_PROJETO_EDA_AEROPORTO_H
 void GuardaDadosAeroporto( avioes *&filaChegada, avioes *& filaPista, avioes *& filaPartida);
-void carregarDadosAeroporto(avioes * filaChegada, avioes*& filaPista);
+void carregarDadosAeroporto(avioes*& filaChegada, avioes*& filaPista, avioes*& filaPartida ,string nomeFAC,string nomeFAP,string nomeFAPA, string nomeFPC, string nomeFPP, string nomeFPPA);
 void menuG(avioes* filaChegada, avioes* filaPista, avioes* filaPartida);
+void leFicheiroA(string nome1, avioes*& filaRetirada);
+void leFicheiroP(string nome2, avioes*& filaRetirada);
 
 int contarLinhas(string nomeFicheiro);
 
-avioes* leFicheiroChegada(string nome1, string nome2);
+
 #endif //SEGUNDO_PROJETO_EDA_AEROPORTO_H

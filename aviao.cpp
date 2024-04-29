@@ -79,6 +79,7 @@ avioes* adicionaAvioes(avioes* head, string nomeVoo, string modelo, string orige
     novoAviao->capacidade = capacidade;
     novoAviao->qtdPassageiros = qtdPassageiros;
     novoAviao->next = nullptr;
+    novoAviao->passageiroHead = nullptr;
     return novoAviao;
 }
 
@@ -103,6 +104,10 @@ void adicionaPassageiroAviao(avioes* aviao){
     for (int i = 0; i < aviao->capacidade; i++) {
         aviao->passageiroHead = adicionaPassageiroFila(aviao->passageiroHead, criaPassageiros());
     }
+}
+
+void adicionaPassageiroAviao2(avioes* aviao, passageiros* passageiro){
+    aviao->passageiroHead = adicionaPassageiroFila(aviao->passageiroHead, passageiro);
 }
 
 
@@ -222,13 +227,11 @@ void moverAviaoParaPartida(avioes*& filaPista, avioes*& filaPartida) {
 
 }
 
-void moverAviaoParaEliminar(avioes*& filaPista, avioes*& filaEliminar) {
-    string* conteudoDestino = leFicheiroDestino();
-    if (filaPista != nullptr) {
-        avioes* aviaoAtual = filaPista;
-        filaPista = filaPista->next; // Remover o avião da fila de Pista
+void moverAviaoParaEliminar(avioes*& filaPartida, avioes*& filaEliminar) {
+    if (filaPartida != nullptr) {
+        avioes* aviaoAtual = filaPartida;
+        filaPartida = filaPartida->next; // Remover o avião da fila de Pista
         aviaoAtual->next = nullptr;
-        aviaoAtual->destino = conteudoDestino[rand()%26];
 
         // Adicionar o avião à fila de partida
         if (filaEliminar == nullptr) {
@@ -256,20 +259,18 @@ void simularCiclo(avioes*& filaChegada, avioes*& filaPista, avioes *& filaPartid
         cout << "------Avioes em Pista-------" << endl;
         cout << "----------------------------" << endl;
         moverAviaoParaPista(filaChegada, filaPista);
-        if(tamanhoFilas(filaPista) == 7){
+        if(tamanhoFilas(filaPista) == 7) {
             cout << "----------------------------" << endl;
             cout << "------Avioes a Partir-------" << endl;
             cout << "----------------------------" << endl;
             moverAviaoParaPartida(filaPista, filaPartida);
             if(tamanhoFilas(filaPartida) == 5){
-                avioes* filaEliminar = nullptr;
-                moverAviaoParaEliminar(filaPartida, filaEliminar);
-            }
-        }
+                 avioes* filaEliminar = nullptr;
+                 moverAviaoParaEliminar(filaPartida, filaEliminar);
+             }
+         }
+
     }
-
-
-
 }
 
 int tamanhoFilas(avioes* head){

@@ -20,20 +20,20 @@ void GuardaDadosAeroporto( avioes *&filaChegada, avioes *& filaPista, avioes *& 
     if (arquivoChegada.is_open()) {
         for (int i = 0; i < tamanhoC; i++) {
             if (filaChegada->next == nullptr) {
-                arquivoChegada << filaChegada->nomeVoo << "|" << filaChegada->modelo << "|" << filaChegada->origem<< "|"
+                arquivoChegada <<"|"<<filaChegada->nomeVoo << "|" << filaChegada->modelo << "|" << filaChegada->origem<< "|"
                                << filaChegada->destino << "|" << filaChegada->capacidade << "|"<< filaChegada->qtdPassageiros << "|";
             } else {
-            arquivoChegada << filaChegada->nomeVoo << "|" << filaChegada->modelo << "|" << filaChegada->origem << "|"
+            arquivoChegada <<"|"<<filaChegada->nomeVoo << "|" << filaChegada->modelo << "|" << filaChegada->origem << "|"
                            << filaChegada->destino << "|" << filaChegada->capacidade << "|"<< filaChegada->qtdPassageiros << "|\n";
             }
             if(arquivoPassageirosChegada.is_open()){
                 for (int j = 0; j < filaChegada->qtdPassageiros; j++){
                     if(filaChegada->next == nullptr && filaChegada->passageiroHead->next == nullptr) {
                         arquivoPassageirosChegada << filaChegada->passageiroHead->numBilhete << "|" << filaChegada->passageiroHead->primeiroNome <<"|"
-                                                  << filaChegada->passageiroHead->ultimoNome << "|" << filaChegada->passageiroHead->nacionalidade;
+                                                  << filaChegada->passageiroHead->ultimoNome << "|" << filaChegada->passageiroHead->nacionalidade << "|"<< filaChegada->nomeVoo << "|";
                     }else {
                         arquivoPassageirosChegada << filaChegada->passageiroHead->numBilhete << "|"<< filaChegada->passageiroHead->primeiroNome <<"|"
-                                                  << filaChegada->passageiroHead->ultimoNome << "|" << filaChegada->passageiroHead->nacionalidade << "|\n";
+                                                  << filaChegada->passageiroHead->ultimoNome << "|" << filaChegada->passageiroHead->nacionalidade << "|"<< filaChegada->nomeVoo << "|\n";
                     }
                     filaChegada->passageiroHead = filaChegada->passageiroHead->next;
                 }
@@ -56,11 +56,11 @@ void GuardaDadosAeroporto( avioes *&filaChegada, avioes *& filaPista, avioes *& 
     if (arquivoPista.is_open()) {
         for (int i = 0; i < tamanhoP; i++) {
             if(filaPista->next == nullptr){
-                arquivoPista << filaPista->nomeVoo << "|" << filaPista->modelo << "|" << filaPista->origem << "|"
+                arquivoPista <<"|" <<filaPista->nomeVoo << "|" << filaPista->modelo << "|" << filaPista->origem << "|"
                              << filaPista->destino << "|" << filaPista->capacidade << "|" << filaPista->qtdPassageiros << "|";
             }else {
-                arquivoPista << filaPista->nomeVoo << "|" << filaPista->modelo << "|" << filaPista->origem << "|"
-                             << filaPista->destino << "|" << filaPista->capacidade << "|" << filaPista->qtdPassageiros<< "|\n";
+                arquivoPista << "|"<< filaPista->nomeVoo << "|" << filaPista->modelo << "|" << filaPista->origem << "|"
+                             << filaPista->destino << "|" << filaPista->capacidade << "|" << filaPista->qtdPassageiros<< "|" << endl;
             }
             if(arquivoPassageirosPista.is_open()){
                 for (int j = 0; j < filaPista->qtdPassageiros; j++) {
@@ -91,10 +91,10 @@ void GuardaDadosAeroporto( avioes *&filaChegada, avioes *& filaPista, avioes *& 
     if (arquivoPartida.is_open()) {
         for (int i = 0; i < tamanhoPa; i++) {
             if(filaPartida->next == nullptr){
-                arquivoPartida << filaPartida->nomeVoo << "|" << filaPartida->modelo << "|" << filaPartida->origem << "|"
+                arquivoPartida <<"|" <<filaPartida->nomeVoo << "|" << filaPartida->modelo << "|" << filaPartida->origem << "|"
                                << filaPartida->destino << "|" << filaPartida->capacidade << "|" << filaPartida->qtdPassageiros << "|";
             }else {
-                arquivoPartida << filaPartida->nomeVoo << "|" << filaPartida->modelo << "|" << filaPartida->origem<< "|"
+                arquivoPartida << "|"<<filaPartida->nomeVoo << "|" << filaPartida->modelo << "|" << filaPartida->origem<< "|"
                                << filaPartida->destino << "|" << filaPartida->capacidade << "|"<< filaPartida->qtdPassageiros << "|\n";
             }
             if(arquivoPassageirosPartida.is_open()){
@@ -123,37 +123,13 @@ void GuardaDadosAeroporto( avioes *&filaChegada, avioes *& filaPista, avioes *& 
 }
 
 // Função para carregar os dados do aeroporto de um arquivo
-void carregarDadosAeroporto(avioes * filaChegada, avioes*& filaPista) {
-    ifstream arquivo("dados_aeroporto.txt");
-
-    // Verifica se o arquivo foi aberto corretamente
-    if (arquivo.is_open()) {
-        // Limpa as filas existentes antes de carregar os novos dados
-        // Implemente esta função se necessário
-        // limparFilas(filaChegada, filaPista);
-
-        string linha;
-        string secao;
-        while (getline(arquivo, linha)) {
-            if (linha == "Fila de Chegada:") {
-                secao = "Chegada";
-            } else if (linha == "Fila de Pista:") {
-                secao = "Pista";
-            } else {
-                if (secao == "Chegada") {
-                    // Adicione o avião à fila de chegada conforme necessário
-                    // Implemente essa lógica conforme a estrutura do seu programa
-                } else if (secao == "Pista") {
-                    // Adicione o avião à fila de pista conforme necessário
-                    // Implemente essa lógica conforme a estrutura do seu programa
-                }
-            }
-        }
-        arquivo.close();
-        cout << "Dados do aeroporto carregados com sucesso." << endl;
-    } else {
-        cout << "Erro ao abrir o arquivo para carregar os dados do aeroporto." << endl;
-    }
+void carregarDadosAeroporto(avioes*& filaChegada, avioes*& filaPista, avioes*& filaPartida ,string nomeFAC,string nomeFAP,string nomeFAPA, string nomeFPC, string nomeFPP, string nomeFPPA) {
+    leFicheiroA(nomeFAC, filaChegada);
+    leFicheiroP(nomeFPC, filaChegada);
+    leFicheiroA(nomeFAP, filaPista);
+    leFicheiroP(nomeFPP, filaPista);
+    leFicheiroA(nomeFAPA, filaPartida);
+    leFicheiroP(nomeFPPA, filaPartida);
 }
 
 int contarLinhas(string nomeFicheiro) {
@@ -173,78 +149,71 @@ int contarLinhas(string nomeFicheiro) {
     return numLinhas;
 }
 
-avioes* leFicheiroChegada(string nome1, string nome2){
-    avioes* aviaoRetiradaoTXT = new avioes;
-    avioes* filaRetirada = nullptr;
+void leFicheiroA(string nome1, avioes*& filaRetirada){
     string nomeVoo;
     string modelo;
     string origem;
     string destino;
+    string nomeFicheiro1 = nome1; //AvioesChegada
+    ifstream ficheiro(nomeFicheiro1);
+    if (ficheiro.is_open()) {
+        int i = 0;
+        while (i < contarLinhas(nomeFicheiro1)) {
+            string aux6;
+            getline(ficheiro,aux6,'|');
+            getline(ficheiro, nomeVoo, '|');
+            getline(ficheiro, modelo, '|');
+            getline(ficheiro, origem, '|');
+            getline(ficheiro, destino, '|');
+            string aux1;
+            getline(ficheiro, aux1, '|');
+            int aux2 = stoi(aux1); //getline só aceita string, por isso é necessário converter para int com stoi
+            string aux3;
+            getline(ficheiro, aux3, '|');
+            int aux4 = stoi(aux3);
+            avioes* aux = nullptr;
+            aux = adicionaAvioes(filaRetirada, nomeVoo, modelo, origem, destino, aux2, aux4);
+            filaRetirada = adicionaAviaoFilaChegada2(filaRetirada, aux);
+            i++;
+        }
+    } else {
+        cout << "Erro ao abrir o arquivo para ler os dados dos avioes em chegada." << endl;
+    }
+    ficheiro.close();
+}
+
+void leFicheiroP(string nome2, avioes*& filaRetirada){
     string numBilhete;
     string primeiroNome;
     string ultimoNome;
     string nacionalidade;
-    string nomeFicheiro1 = nome1; //AvioesChegada
+    string nomeVoo;
+    string linha;
     string nomeFicheiro2 = nome2; //PassageirosChegada
-    ifstream ficheiro(nomeFicheiro1);
-    ifstream ficheiro2(nomeFicheiro2);
-    if(ficheiro.is_open() && ficheiro2.is_open()){
-        int i = 0;
-        while (i<contarLinhas(nomeFicheiro1)) {
-            getline(ficheiro, nomeVoo, '|');
-            aviaoRetiradaoTXT->nomeVoo = nomeVoo;
-            getline(ficheiro, modelo, '|');
-            aviaoRetiradaoTXT->modelo = modelo;
-            getline(ficheiro, origem, '|');
-            aviaoRetiradaoTXT->origem = origem;
-            getline(ficheiro, destino, '|');
-            aviaoRetiradaoTXT->destino = destino;
-            string aux1;
-            getline(ficheiro, aux1, '|');
-            int aux2 = stoi(aux1);
-            aviaoRetiradaoTXT->capacidade = aux2;
-            string aux3;
-            getline(ficheiro, aux3, '|');
-            int aux4 = stoi(aux3);
-            aviaoRetiradaoTXT->qtdPassageiros = aux4;
-                for (int j = 0; j < aviaoRetiradaoTXT->qtdPassageiros; j++) {
-                    passageiros *passageiroRetirado = nullptr;
-                    getline(ficheiro2, numBilhete, '|');
-                    getline(ficheiro2, primeiroNome, '|');
-                    getline(ficheiro2, ultimoNome, '|');
-                    getline(ficheiro2, nacionalidade, '|');
-                    passageiroRetirado->numBilhete = numBilhete;
-                    passageiroRetirado->primeiroNome = primeiroNome;
-                    passageiroRetirado->ultimoNome = ultimoNome;
-                    passageiroRetirado->nacionalidade = nacionalidade;
-                    passageiroRetirado->next = nullptr;
-                    adicionaPassageiroFila(aviaoRetiradaoTXT->passageiroHead, passageiroRetirado);
+    ifstream ficheiro(nomeFicheiro2);
+    if (ficheiro.is_open()) {
+        avioes* aux2 = filaRetirada;
+        while(aux2 != nullptr) {
+            int i= 0;
+            while (i<aux2->capacidade){
+                getline(ficheiro, numBilhete, '|');
+                getline(ficheiro, primeiroNome, '|');
+                getline(ficheiro, ultimoNome, '|');
+                getline(ficheiro, nacionalidade, '|');
+                getline(ficheiro, nomeVoo, '|');
+                passageiros *aux = adicionaPassageiro(nullptr, numBilhete, primeiroNome, ultimoNome, nacionalidade);
+                if (nomeVoo == aux2->nomeVoo) {
+                    adicionaPassageiroAviao2(aux2, aux);
                 }
-                aviaoRetiradaoTXT->next = nullptr;
-                adicionaAviaoFilaChegada(filaRetirada, aviaoRetiradaoTXT);
-                i++;
+            i++;
+            }
+            aux2 = aux2->next;
         }
 
-        } else {
-            cout << "Erro ao abrir o arquivo para ler os dados dos avioes em chegada." << endl;
-        }
-        ficheiro.close();
-        ficheiro2.close();
-        return filaRetirada;
+    } else {
+        cout << "Erro ao abrir o arquivo para ler os dados dos avioes em chegada." << endl;
+    }
+    ficheiro.close();
 }
 
 
-
-void menuG(avioes* filaChegada, avioes* filaPista, avioes* filaPartida){
-    string resposta2;
-    do {
-        cout << "Escolha uma opcao: \n" << endl;
-        cout << "(c)arregar (g)ravar \n" << endl;
-        cin >> resposta2;
-        if (resposta2 == "c" || resposta2 == "C") {
-            carregarDadosAeroporto(filaChegada, filaPista);
-        } else if (resposta2 == "g" || resposta2 == "G") {
-            GuardaDadosAeroporto(filaChegada, filaPista, filaPartida);
-        }
-    } while (resposta2 != "0");
-}

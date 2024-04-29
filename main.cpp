@@ -15,19 +15,32 @@ int main(int argc, char const* argv[]) {
     srand(time(0));
     string resposta;
     bool emergencia = false;
+
+    avioes *filaChegada = nullptr;
+    avioes *filaPista = nullptr;
+    avioes *filaPartida = nullptr;
+
+    if(argc==1) {
+        for (int i = 0; i < 10; i++) {
+            avioes *novoAviaoChegada = criaAvioes();
+            adicionaPassageiroAviao(novoAviaoChegada);
+            filaChegada = adicionaAviaoFilaChegada(filaChegada, novoAviaoChegada);
+        }
+    }else{
+        string nomeFAC = argv[1];
+        string nomeFAP = argv[2];
+        string nomeFAPA = argv[3];
+        string nomeFPC = argv[4];
+        string nomeFPP = argv[5];
+        string nomeFPPA = argv[6];
+        carregarDadosAeroporto(filaChegada, filaPista, filaPartida, nomeFAC,nomeFAP,nomeFAPA,nomeFPC,nomeFPP,nomeFPPA);
+    }
+
+    apresentaInfoTodosAvioes(filaChegada);
     cout << "Escolha uma opcao: \n";
     cout << "(e)mergencia (o)pcoes (g)ravar \n";
-    //codigo de apresentação dos aviões em chegada/pista/partida
-    avioes * filaChegada = nullptr;
-    avioes * filaPista = nullptr;
-    avioes * filaPartida = nullptr;
-    for (int i = 0; i < 10; i++) {
-        avioes* novoAviaoChegada = criaAvioes();
-        adicionaPassageiroAviao(novoAviaoChegada);
-        filaChegada = adicionaAviaoFilaChegada(filaChegada, novoAviaoChegada);
-    }
-    apresentaInfoTodosAvioes(filaChegada);
     do {
+
         cin >> resposta;
         if (resposta == "e" || resposta == "E") {// Se a resposta for g
             emergencia = true;
@@ -39,12 +52,9 @@ int main(int argc, char const* argv[]) {
                 simularCiclo(filaChegada, filaPista ,filaPartida);
             }
         } else if (resposta == "o" || resposta == "O") { // Se a resposta for O
-            string nome1 = argv[1];
-            string nome2 = argv[4];
-            avioes* filaRetiradaC = leFicheiroChegada(nome1,nome2);
-            apresentaInfoTodosAvioes(filaRetiradaC);
+
         } else if (resposta == "g" || resposta == "G") {
-            menuG(filaChegada, filaPista, filaPartida);
+            GuardaDadosAeroporto(filaChegada,filaPista,filaPartida);
         }else{
             cout << "Escolheu a opcao sair." << endl;
         }
