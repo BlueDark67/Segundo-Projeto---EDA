@@ -38,7 +38,6 @@ void apresentaPassageiros(avioes* aviao);
 void moverAviaoParaPista(avioes*& filaChegada, avioes*& filaPista);
 void moverAviaoParaPartida(avioes*&filaPista,avioes *&filaPartida);
 void simularCiclo(avioes*& filaChegada, avioes*& filaPista, avioes *& filaPartida);
-void removeNo(avioes** head);
 void moverAviaoParaEliminar(avioes*& filaPista, avioes*& filaEliminar);
 void adicionaPassageiroAviao2(avioes* aviao, passageiros* passageiro);
 

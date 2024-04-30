@@ -10,6 +10,11 @@
 
 
 using namespace std;
+
+/**
+ * Função que guarda os dados do aeroporto num ficheiro
+ * @return - os dados do aerorporto no ficheiro.txt
+ */
 void GuardaDadosAeroporto( avioes *&filaChegada, avioes *& filaPista, avioes *& filaPartida){
     int tamanhoC = tamanhoFilas(filaChegada);
     int tamanhoP = tamanhoFilas(filaPista);
@@ -122,7 +127,18 @@ void GuardaDadosAeroporto( avioes *&filaChegada, avioes *& filaPista, avioes *& 
     }
 }
 
-// Função para carregar os dados do aeroporto de um arquivo
+/**
+ * Função que carrega os dados do aeroporto de um ficheiro
+ * @param filaChegada - fila de chegada
+ * @param filaPista  - fila de pista
+ * @param filaPartida - fila de partida
+ * @param nomeFAC - nome do ficheiro de avioes em chegada
+ * @param nomeFAP - nome do ficheiro de avioes em pista
+ * @param nomeFAPA - nome do ficheiro de avioes em partida
+ * @param nomeFPC - nome do ficheiro de passageiros em chegada
+ * @param nomeFPP - nome do ficheiro de passageiros em pista
+ * @param nomeFPPA - nome do ficheiro de passageiros em partida
+ */
 void carregarDadosAeroporto(avioes*& filaChegada, avioes*& filaPista, avioes*& filaPartida ,string nomeFAC,string nomeFAP,string nomeFAPA, string nomeFPC, string nomeFPP, string nomeFPPA) {
     leFicheiroA(nomeFAC, filaChegada);
     leFicheiroP(nomeFPC, filaChegada);
@@ -132,6 +148,11 @@ void carregarDadosAeroporto(avioes*& filaChegada, avioes*& filaPista, avioes*& f
     leFicheiroP(nomeFPPA, filaPartida);
 }
 
+/**
+ * Função que conta o número de linhas de um ficheiro
+ * @param nomeFicheiro
+ * @return - número de linhas
+ */
 int contarLinhas(string nomeFicheiro) {
     ifstream ficheiro(nomeFicheiro);
     if (!ficheiro.is_open()) {
@@ -149,6 +170,11 @@ int contarLinhas(string nomeFicheiro) {
     return numLinhas;
 }
 
+/**
+ * Função que lê o ficheiro avioesChegada.txt, avioesPista.txt e avioesPartida.txt
+ * @param nome1 - nome do ficheiro
+ * @param filaRetirada - fila de avioes
+ */
 void leFicheiroA(string nome1, avioes*& filaRetirada){
     string nomeVoo;
     string modelo;
@@ -182,6 +208,11 @@ void leFicheiroA(string nome1, avioes*& filaRetirada){
     ficheiro.close();
 }
 
+/**
+ * Função que lê o ficheiro passageirosChegada.txt, passageirosPista.txt e passageirosPartida.txt
+ * @param nome2 - nome do ficheiro
+ * @param filaRetirada - fila de avioes
+ */
 void leFicheiroP(string nome2, avioes*& filaRetirada){
     string numBilhete;
     string primeiroNome;

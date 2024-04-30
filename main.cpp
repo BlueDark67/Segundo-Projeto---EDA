@@ -11,6 +11,12 @@ using namespace std;
  * Grupo 13: Membro 1 - 2124623; Membro 2 -2109923; Membro 3 - 2099223; Membro 4 -2144323;
  */
 
+/**
+ * Função principal
+ * @param argc - número de argumentos
+ * @param argv - argumentos
+ * @return - 0
+ */
 int main(int argc, char const* argv[]) {
     srand(time(0));
     string resposta;
@@ -38,7 +44,7 @@ int main(int argc, char const* argv[]) {
 
     apresentaInfoTodosAvioes(filaChegada);
     cout << "Escolha uma opcao: \n";
-    cout << "(e)mergencia (o)pcoes (g)ravar \n";
+    cout << "(e)mergencia (o)pcoes (g)ravar (s)proximo ciclo\n";
     do {
 
         cin >> resposta;
@@ -60,5 +66,9 @@ int main(int argc, char const* argv[]) {
         }
 
     }while (resposta != "0");// Enquanto a resposta for diferente de 0
+
+    delete filaChegada;
+    delete filaPista;
+    delete filaPartida;
     return 0;
 }

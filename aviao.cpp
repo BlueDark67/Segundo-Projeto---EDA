@@ -9,6 +9,10 @@
 
 using namespace std;
 
+/**
+ * Função que lê o ficheiro primeiro_nome.txt
+ * @return - conteudo do ficheiro primeiro_nome.txt
+ */
 string * leFicheiroNomeVoo(){
     const int max_linha = 80;
     auto * conteudoVoo = new string[max_linha];
@@ -24,6 +28,10 @@ string * leFicheiroNomeVoo(){
 
 }
 
+/**
+ * Função que lê o ficheiro modelo.txt
+ * @return - conteudo do ficheiro modelo.txt
+ */
 string * leFicheiroModeloAviao(){
     const int max_linha = 32;
     auto * conteudoAviao = new string[max_linha];
@@ -39,6 +47,10 @@ string * leFicheiroModeloAviao(){
 
 }
 
+/**
+ * Função que lê o ficheiro origem.txt
+ * @return - conteudo do ficheiro origem.txt
+ */
 string * leFicheiroOrigem(){
     const int max_linha = 25;
     auto * conteudoOrigem = new string[max_linha];
@@ -54,6 +66,10 @@ string * leFicheiroOrigem(){
 
 }
 
+/**
+ * Função que lê o ficheiro destino.txt
+ * @return - conteudo do ficheiro destino.txt
+ */
 string * leFicheiroDestino(){
     const int max_linha = 25;
     auto * conteudoDestino = new string[max_linha];
@@ -70,6 +86,10 @@ string * leFicheiroDestino(){
 
 }
 
+/**
+ * Função que cria um passageiro
+ * @return - passageiro
+ */
 avioes* adicionaAvioes(avioes* head, string nomeVoo, string modelo, string origem, string destino, int capacidade, int qtdPassageiros){
     avioes* novoAviao = new avioes;
     novoAviao->nomeVoo = nomeVoo;
@@ -83,6 +103,10 @@ avioes* adicionaAvioes(avioes* head, string nomeVoo, string modelo, string orige
     return novoAviao;
 }
 
+/**
+ * Função que cria um passageiro
+ * @return - passageiro
+ */
 avioes* criaAvioes(){
     string* conteudoNomeVoo = leFicheiroNomeVoo();
     string* conteudoModeloAviao = leFicheiroModeloAviao();
@@ -99,18 +123,31 @@ avioes* criaAvioes(){
     return novoAviao;
 }
 
-
+/**
+ * Função que adiciona um passageiro à lista de passageiros
+ * @param head - cabeça da lista de passageiros
+ * @param passageiro - passageiro a adicionar
+ * @return - lista de passageiros com o novo passageiro
+ */
 void adicionaPassageiroAviao(avioes* aviao){
     for (int i = 0; i < aviao->capacidade; i++) {
         aviao->passageiroHead = adicionaPassageiroFila(aviao->passageiroHead, criaPassageiros());
     }
 }
-
+/**
+ * Função que adiciona um passageiro à lista de passageiros
+ * @param head - cabeça da lista de passageiros
+ * @param passageiro - passageiro a adicionar
+ * @return - lista de passageiros com o novo passageiro
+ */
 void adicionaPassageiroAviao2(avioes* aviao, passageiros* passageiro){
     aviao->passageiroHead = adicionaPassageiroFila(aviao->passageiroHead, passageiro);
 }
 
-
+/**
+ * Função que apresenta a informação de todos os aviões
+ * @param head - cabeça da lista de aviões
+ */
 void apresentaInfoTodosAvioes(avioes* head) {
     avioes* aux = head;
     while (aux != nullptr) {
@@ -124,7 +161,10 @@ void apresentaInfoTodosAvioes(avioes* head) {
         aux = aux->next;
     }
 }
-
+/**
+ * Função que apresenta a informação de todos os passageiros
+ * @param head - cabeça da lista de aviões
+ */
 void apresentaPassageiros(avioes* aviao){
     passageiros* aux = aviao->passageiroHead;
     cout << "Passageiros: ";
@@ -141,6 +181,13 @@ void apresentaPassageiros(avioes* aviao){
     }
     cout << endl;
 }
+
+/**
+ * Função que adiciona um avião à lista de aviões
+ * @param head - cabeça da lista de aviões
+ * @param aviao - avião a adicionar
+ * @return - lista de aviões com o novo avião
+ */
 avioes* adicionaAviaoFilaChegada(avioes* head, avioes* aviao){
     avioes* novoNode = new avioes;
     novoNode = aviao;
@@ -157,6 +204,12 @@ avioes* adicionaAviaoFilaChegada(avioes* head, avioes* aviao){
     return head;
 }
 
+/**
+ * Função que adiciona um avião à lista de aviões
+ * @param head - cabeça da lista de aviões
+ * @param aviao - avião a adicionar
+ * @return - lista de aviões com o novo avião
+ */
 avioes* adicionaAviaoFilaChegada2(avioes*& head, avioes* aviao){
     avioes* novoNode = new avioes;
     novoNode = aviao;
@@ -173,6 +226,11 @@ avioes* adicionaAviaoFilaChegada2(avioes*& head, avioes* aviao){
     return head;
 }
 
+/**
+ * Função que move um avião da fila de chegada para a pista
+ * @param filaChegada - fila de chegada
+ * @param filaPista - fila de pista
+ */
 void moverAviaoParaPista(avioes*& filaChegada, avioes*& filaPista) {
     if (filaChegada != nullptr) {
         avioes* aviaoAtual = filaChegada;
@@ -199,6 +257,11 @@ void moverAviaoParaPista(avioes*& filaChegada, avioes*& filaPista) {
 
 }
 
+/**
+ * Função que move um avião da fila de pista para a partida
+ * @param filaPista - fila de pista
+ * @param filaPartida - fila de partida
+ */
 void moverAviaoParaPartida(avioes*& filaPista, avioes*& filaPartida) {
     string* conteudoDestino = leFicheiroDestino();
     if (filaPista != nullptr) {
@@ -227,6 +290,11 @@ void moverAviaoParaPartida(avioes*& filaPista, avioes*& filaPartida) {
 
 }
 
+/**
+ * Função que move um avião da fila de partida para a fila de eliminar
+ * @param filaPartida - fila de partida
+ * @param filaEliminar - fila de eliminar
+ */
 void moverAviaoParaEliminar(avioes*& filaPartida, avioes*& filaEliminar) {
     if (filaPartida != nullptr) {
         avioes* aviaoAtual = filaPartida;
@@ -246,9 +314,12 @@ void moverAviaoParaEliminar(avioes*& filaPartida, avioes*& filaEliminar) {
     }
 }
 
-
-
-
+/**
+ * Função que simula um ciclo
+ * @param filaChegada - fila de chegada
+ * @param filaPista - fila de pista
+ * @param filaPartida - fila de partida
+ */
 void simularCiclo(avioes*& filaChegada, avioes*& filaPista, avioes *& filaPartida) {
     cout << "----------------------------" << endl;
     cout << "-------Avioes em chegada------" << endl;
@@ -271,8 +342,15 @@ void simularCiclo(avioes*& filaChegada, avioes*& filaPista, avioes *& filaPartid
          }
 
     }
+    cout << "Escolha uma opcao: \n";
+    cout << "(e)mergencia (o)pcoes (g)ravar (s)proximo ciclo \n";
 }
 
+/**
+ * Função que calcula o tamanho de uma fila
+ * @param head - cabeça da fila
+ * @return - tamanho da fila
+ */
 int tamanhoFilas(avioes* head){
     avioes* aux = head;
     int tamanho = 0;

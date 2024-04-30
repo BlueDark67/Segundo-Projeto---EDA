@@ -9,6 +9,10 @@
 
 using namespace std;
 
+/**
+ * Função que lê o ficheiro primeiro_nome.txt
+ * @return - conteudo do ficheiro primeiro_nome.txt
+ */
 string* leFicheiroPrimeiroNome(){
     const int max_linha = 30;
     auto* conteudoPrimeiroNome = new string[max_linha];
@@ -23,6 +27,10 @@ string* leFicheiroPrimeiroNome(){
     return conteudoPrimeiroNome;
 }
 
+/**
+ * Função que lê o ficheiro segundo_nome.txt
+ * @return - conteudo do ficheiro segundo_nome.txt
+ */
 string* leFicheiroUltimoNome(){
     const int max_linha = 30;
     auto* conteudoUltimoNome = new string[max_linha];
@@ -37,6 +45,10 @@ string* leFicheiroUltimoNome(){
     return conteudoUltimoNome;
 }
 
+/**
+ * Função que lê o ficheiro nacionalidade.txt
+ * @return - conteudo do ficheiro nacionalidade.txt
+ */
 string* leFicheiroNacionalidade(){
     const int max_linha = 21;
     auto* conteudoNacionalidade = new string[max_linha];
@@ -51,6 +63,15 @@ string* leFicheiroNacionalidade(){
     return conteudoNacionalidade;
 }
 
+/**
+ * Função que adiciona um passageiro à lista de passageiros
+ * @param head - cabeça da lista de passageiros
+ * @param numBilhete - número do bilhete do passageiro
+ * @param primeiroNome - primeiro nome do passageiro
+ * @param ultimoNome - último nome do passageiro
+ * @param nacionalidade - nacionalidade do passageiro
+ * @return - lista de passageiros com o novo passageiro
+ */
 passageiros* adicionaPassageiro(passageiros* head, string numBilhete, string primeiroNome, string ultimoNome, string nacionalidade){
     passageiros* novoPassageiro = new passageiros;
     novoPassageiro->numBilhete = numBilhete;
@@ -61,6 +82,10 @@ passageiros* adicionaPassageiro(passageiros* head, string numBilhete, string pri
     return novoPassageiro;
 }
 
+/**
+ * Função que cria um passageiro aleatório
+ * @return - passageiro criado
+ */
 passageiros* criaPassageiros(){
     string* conteudoPN = leFicheiroPrimeiroNome();
     string* conteudoUN = leFicheiroUltimoNome();
@@ -73,6 +98,12 @@ passageiros* criaPassageiros(){
     return adicionaPassageiro(nullptr, numBilhete, primeiroNome, ultimoNome, nacionalidade);
 }
 
+/**
+ * Função que adiciona um passageiro à lista de passageiros
+ * @param head - cabeça da lista de passageiros
+ * @param passageiro - passageiro a adicionar
+ * @return - lista de passageiros com o novo passageiro
+ */
 passageiros* adicionaPassageiroFila(passageiros* head, passageiros* passageiro) {
     passageiro->next = nullptr;
 
