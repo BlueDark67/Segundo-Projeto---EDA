@@ -58,6 +58,7 @@ int main(int argc, char const* argv[]) {
                 simularCiclo(filaChegada, filaPista ,filaPartida);
             }
         } else if (resposta == "o" || resposta == "O") { // Se a resposta for O
+            testeArvore(filaPista);
 
         } else if (resposta == "g" || resposta == "G") {
             GuardaDadosAeroporto(filaChegada,filaPista,filaPartida);

@@ -118,3 +118,105 @@ passageiros* adicionaPassageiroFila(passageiros* head, passageiros* passageiro) 
         return head;
     }
 }
+
+nodo* novoNodo(passageiros* passageiro){
+    nodo* no = new nodo;
+    no->passageiro = passageiro;
+    no->pDireita = nullptr;
+    no->pEsquerda = nullptr;
+    return no;
+}
+
+nodo* inserirNodo(nodo* no, passageiros* passageiro, int numPassageiros) {
+    if (no == nullptr) {
+        no = novoNodo(passageiro);
+    } else {
+        int num1Comparacao = passageiro->primeiroNome.compare(no->passageiro->primeiroNome);
+        int num2Comparacao = passageiro->ultimoNome.compare(no->passageiro->ultimoNome);
+        int num3Comparacao = passageiro->numBilhete.compare(no->passageiro->numBilhete);
+
+        if (num1Comparacao == 0 && num2Comparacao == 0 && num3Comparacao == 0) {
+            cout << "Passageiro já existe" << endl;
+            return no;
+        }
+
+        if (num1Comparacao < 0) {
+            no->pEsquerda = inserirNodo(no->pEsquerda, passageiro, numPassageiros);
+        } else {
+            no->pDireita = inserirNodo(no->pDireita, passageiro, numPassageiros);
+        }
+
+    }
+    return no;
+
+}
+
+nodo* criaArvore(passageiros* passageiro){
+    string nacionalidades[23];
+    int num_nacionalidades = 0;
+    while(passageiro != nullptr){
+        bool existe = false;
+        for(int i = 0; i < num_nacionalidades; i++){
+            if(nacionalidades[i] == passageiro->nacionalidade){
+                existe = true;
+                break;
+            }
+        }
+        if(!existe){
+            nacionalidades[num_nacionalidades] = passageiro->nacionalidade;
+            num_nacionalidades++;
+        }
+        passageiro = passageiro->next;
+    }
+
+    nodo* raiz = nullptr;
+    for (int i = 0; i < num_nacionalidades; i++) {
+        passageiros* passageiroAtual = passageiro;
+        while(passageiroAtual != nullptr){
+            if(passageiroAtual->nacionalidade == nacionalidades[i]){
+                raiz = inserirNodo(raiz, passageiroAtual, num_nacionalidades);
+            }
+            passageiroAtual = passageiroAtual->next;
+        }
+    }
+
+    return raiz;
+}
+
+void imprimeArvore(nodo* no, int nivel){
+    if (no == nullptr) {
+        cout << "Arvore vazia" << endl;
+        return;
+    }
+
+    cout << "Nacionalidade: " << no->passageiro->nacionalidade << endl;
+    imprimeArvore(no->pDireita, nivel + 1);
+    for (int i = 0; i < nivel; i++) {
+        cout << "\t";
+    }
+    cout << no->passageiro->primeiroNome << no->passageiro->ultimoNome << endl;
+    imprimeArvore(no->pEsquerda, nivel + 1);
+}
+
+int altura(nodo* no){
+    if (no == nullptr) {
+        return 0;
+    }else{
+        int altEsq = altura(no->pEsquerda);
+        int altDir = altura(no->pDireita);
+        if (altEsq > altDir) {
+            return altEsq + 1;
+        }else{
+            return altDir + 1;
+        }
+    }
+}
+
+int contaNos(nodo* no){
+    if (no == nullptr) {
+        return 0;
+    }else{
+        return 1 + contaNos(no->pEsquerda) + contaNos(no->pDireita);
+    }
+}
+

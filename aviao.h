@@ -40,6 +40,7 @@ void moverAviaoParaPartida(avioes*&filaPista,avioes *&filaPartida);
 void simularCiclo(avioes*& filaChegada, avioes*& filaPista, avioes *& filaPartida);
 void moverAviaoParaEliminar(avioes*& filaPista, avioes*& filaEliminar);
 void adicionaPassageiroAviao2(avioes* aviao, passageiros* passageiro);
+void testeArvore(avioes* fila);
 
 int tamanhoFilas(avioes* head);
 
