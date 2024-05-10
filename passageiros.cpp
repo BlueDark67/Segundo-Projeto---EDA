@@ -127,65 +127,83 @@ nodo* novoNodo(passageiros* passageiro){
     return no;
 }
 
-nodo* inserirNodo(nodo* no, passageiros* passageiro, int numPassageiros) {
+nodo* inserirNodo(nodo* no, passageiros* passageiro) {
     if (no == nullptr) {
         no = novoNodo(passageiro);
     } else {
-        int num1Comparacao = passageiro->primeiroNome.compare(no->passageiro->primeiroNome);
-        int num2Comparacao = passageiro->ultimoNome.compare(no->passageiro->ultimoNome);
-        int num3Comparacao = passageiro->numBilhete.compare(no->passageiro->numBilhete);
-
-        if (num1Comparacao == 0 && num2Comparacao == 0 && num3Comparacao == 0) {
-            cout << "Passageiro já existe" << endl;
-            return no;
-        }
-
-        if (num1Comparacao < 0) {
-            no->pEsquerda = inserirNodo(no->pEsquerda, passageiro, numPassageiros);
+        // Comparação alfabética dos nomes
+        if (passageiro->primeiroNome < no->passageiro->primeiroNome) {
+            no->pEsquerda = inserirNodo(no->pEsquerda, passageiro);
+        } else if (passageiro->primeiroNome > no->passageiro->primeiroNome) {
+            no->pDireita = inserirNodo(no->pDireita, passageiro);
         } else {
-            no->pDireita = inserirNodo(no->pDireita, passageiro, numPassageiros);
+            // Se os primeiros nomes forem iguais, compare os últimos nomes
+            if (passageiro->ultimoNome < no->passageiro->ultimoNome) {
+                no->pEsquerda = inserirNodo(no->pEsquerda, passageiro);
+            } else if (passageiro->ultimoNome > no->passageiro->ultimoNome) {
+                no->pDireita = inserirNodo(no->pDireita, passageiro);
+            } else {
+                // Se os últimos nomes também forem iguais, compare os números de bilhete
+                if (passageiro->numBilhete < no->passageiro->numBilhete) {
+                    no->pEsquerda = inserirNodo(no->pEsquerda, passageiro);
+                } else if (passageiro->numBilhete > no->passageiro->numBilhete) {
+                    no->pDireita = inserirNodo(no->pDireita, passageiro);
+                } else {
+                    // Se todos os campos forem iguais, o passageiro já existe na árvore
+                    cout << "Passageiro já existe" << endl;
+                    return no;
+                }
+            }
         }
-
     }
     return no;
-
 }
 
-nodo* criaArvore(passageiros* passageiro){
-    string nacionalidades[23];
-    int num_nacionalidades = 0;
-    while(passageiro != nullptr){
+nodo* criaArvore(passageiros* passageiro) {
+    noNacionalidade* head = nullptr;
+
+    // Percorre a lista de passageiros para extrair as nacionalidades únicas
+    while (passageiro != nullptr) {
         bool existe = false;
-        for(int i = 0; i < num_nacionalidades; i++){
-            if(nacionalidades[i] == passageiro->nacionalidade){
+        noNacionalidade* temp = head;
+        while (temp != nullptr) {
+            if (temp->nacionalidade == passageiro->nacionalidade) {
                 existe = true;
                 break;
             }
+            temp = temp->next;
         }
-        if(!existe){
-            nacionalidades[num_nacionalidades] = passageiro->nacionalidade;
-            num_nacionalidades++;
+
+        if (!existe) {
+            // Cria uma nova árvore para essa nacionalidade
+            nodo* raiz = nullptr;
+            raiz = inserirNodo(raiz, passageiro); // Insira aqui a lógica para inserir o primeiro nodo na árvore
+            // Insere a nacionalidade na lista ligada
+            head = insereNoNacionalidade(head, passageiro->nacionalidade, raiz);
         }
+
         passageiro = passageiro->next;
     }
 
-    nodo* raiz = nullptr;
-    for (int i = 0; i < num_nacionalidades; i++) {
-        passageiros* passageiroAtual = passageiro;
-        while(passageiroAtual != nullptr){
-            if(passageiroAtual->nacionalidade == nacionalidades[i]){
-                raiz = inserirNodo(raiz, passageiroAtual, num_nacionalidades);
-            }
-            passageiroAtual = passageiroAtual->next;
-        }
+    // Retorna o ponteiro para a raiz da árvore da primeira nacionalidade
+    if (head != nullptr) {
+        return head->raiz;
+    } else {
+        return nullptr; // Retorna nullptr se a lista de passageiros estiver vazia
     }
+}
 
-    return raiz;
+noNacionalidade* insereNoNacionalidade(noNacionalidade* no, string nacionalidade, nodo* raiz){
+    noNacionalidade* novoNo = new noNacionalidade;
+    novoNo->nacionalidade = nacionalidade;
+    novoNo->raiz = raiz;
+    novoNo->next = no;
+    return novoNo;
 }
 
 void imprimeArvore(nodo* no, int nivel){
     if (no == nullptr) {
-        cout << "Arvore vazia" << endl;
+        //cout << "Arvore vazia" << endl;
         return;
     }
 

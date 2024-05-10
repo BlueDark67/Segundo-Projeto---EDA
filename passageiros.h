@@ -39,8 +39,10 @@ passageiros* criaPassageiros();
 passageiros* adicionaPassageiroFila(passageiros* head, passageiros* passageiro);
 
 nodo* novoNodo(passageiros* passageiro);
-nodo* inserirNodo(nodo* no, passageiros* passageiro, int numPassageiros);
+nodo* inserirNodo(nodo* no, passageiros* passageiro);
 nodo* criaArvore(passageiros* passageiro);
+
+noNacionalidade* insereNoNacionalidade(noNacionalidade* no, string nacionalidade, nodo* raiz);
 
 void imprimeArvore(nodo* no, int nivel);
 

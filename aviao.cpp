@@ -378,7 +378,7 @@ void testeArvore(avioes* fila){
     nodo* raiz = criaArvore(fila->passageiroHead);
     passageiros* passageiroAtual = fila->passageiroHead;
     while(passageiroAtual != nullptr){
-        raiz = inserirNodo(raiz, passageiroAtual, fila->capacidade);
+        raiz = inserirNodo(raiz, passageiroAtual);
         passageiroAtual = passageiroAtual->next;
     }
     imprimeArvore(raiz, 1);
