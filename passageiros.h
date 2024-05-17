@@ -43,6 +43,7 @@ nodo* inserirNodo(nodo* no, passageiros* passageiro);
 nodo* criaArvore(passageiros* passageiro);
 
 noNacionalidade* insereNoNacionalidade(noNacionalidade* no, string nacionalidade, nodo* raiz);
+noNacionalidade* criaListaNacionalidades();
 
 void imprimeArvore(nodo* no, int nivel);
 

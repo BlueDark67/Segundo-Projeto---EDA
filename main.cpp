@@ -26,6 +26,9 @@ int main(int argc, char const* argv[]) {
     avioes *filaPista = nullptr;
     avioes *filaPartida = nullptr;
 
+    noNacionalidade* listaNacionalidades = criaListaNacionalidades();
+
+
     if(argc==1) {
         for (int i = 0; i < 10; i++) {
             avioes *novoAviaoChegada = criaAvioes();
@@ -43,7 +46,7 @@ int main(int argc, char const* argv[]) {
     }
 
     apresentaInfoTodosAvioes(filaChegada);
-    cout << "Escolha uma opcao: \n";
+    cout << "Escolha um: \n";
     cout << "(e)mergencia (o)pcoes (g)ravar (s)proximo ciclo\n";
     do {
 
@@ -59,7 +62,9 @@ int main(int argc, char const* argv[]) {
             }
         } else if (resposta == "o" || resposta == "O") { // Se a resposta for O
             testeArvore(filaPista);
-
+            //alterar a lista ligada para ser a dos que foi retirado do txt
+            //Só estrageiros (Portugues nao entra)
+            //corrigir as arvores para integrar todos os avioes da fila pista
         } else if (resposta == "g" || resposta == "G") {
             GuardaDadosAeroporto(filaChegada,filaPista,filaPartida);
         }else{

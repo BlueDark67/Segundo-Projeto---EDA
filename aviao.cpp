@@ -236,15 +236,15 @@ void moverAviaoParaPista(avioes*& filaChegada, avioes*& filaPista) {
     if (filaChegada != nullptr) {
         avioes* aviaoAtual = filaChegada;
         filaChegada = filaChegada->next; // Remover o avião da fila de chegada
-        aviaoAtual->passageiroHead = nullptr;
+       /* aviaoAtual->passageiroHead = nullptr;
         aviaoAtual->capacidade += 3;
         aviaoAtual->qtdPassageiros = aviaoAtual->capacidade;
-        adicionaPassageiroAviao(aviaoAtual);
+        adicionaPassageiroAviao(aviaoAtual);*/
         aviaoAtual->next = nullptr;
-        if(conteudoNomeVoo!= nullptr) {
+       /* if(conteudoNomeVoo!= nullptr) {
             aviaoAtual->nomeVoo = conteudoNomeVoo[rand() % 81];
             delete[] conteudoNomeVoo;
-        }
+        }*/
         // Adicionar o avião à fila de pista
         if (filaPista == nullptr) {
             filaPista = aviaoAtual;
@@ -256,7 +256,7 @@ void moverAviaoParaPista(avioes*& filaChegada, avioes*& filaPista) {
             aux->next = aviaoAtual;
         }
 
-        apresentaInfoTodosAvioes(filaPista);
+       // apresentaInfoTodosAvioes(filaPista);
     } else {
         cout << "Nenhum aviao em aproximação para mover para a pista." << endl;
     }
@@ -292,7 +292,7 @@ void moverAviaoParaPartida(avioes*& filaPista, avioes*& filaPartida) {
             }
             aux->next = aviaoAtual;
         }
-        apresentaInfoTodosAvioes(filaPartida);
+       // apresentaInfoTodosAvioes(filaPartida);
     } else {
         cout << "Nenhum aviao em pista para Partir ." << endl;
     }
@@ -330,25 +330,28 @@ void moverAviaoParaEliminar(avioes*& filaPartida, avioes*& filaEliminar) {
  * @param filaPartida - fila de partida
  */
 void simularCiclo(avioes*& filaChegada, avioes*& filaPista, avioes *& filaPartida) {
-    cout << "----------------------------" << endl;
-    cout << "-------Avioes em chegada------" << endl;
-    cout << "----------------------------" << endl;
-    apresentaInfoTodosAvioes(filaChegada);
+
     if(tamanhoFilas(filaChegada) == 10){
+        moverAviaoParaPista(filaChegada, filaPista);
+        cout << "----------------------------" << endl;
+        cout << "-------Avioes em chegada------" << endl;
+        cout << "----------------------------" << endl;
+        apresentaInfoTodosAvioes(filaChegada);
         cout << "----------------------------" << endl;
         cout << "------Avioes em Pista-------" << endl;
         cout << "----------------------------" << endl;
-        moverAviaoParaPista(filaChegada, filaPista);
+        apresentaInfoTodosAvioes(filaPista);
         if(tamanhoFilas(filaPista) == 7) {
+            moverAviaoParaPartida(filaPista, filaPartida);
             cout << "----------------------------" << endl;
             cout << "------Avioes a Partir-------" << endl;
             cout << "----------------------------" << endl;
-            moverAviaoParaPartida(filaPista, filaPartida);
+            apresentaInfoTodosAvioes(filaPartida);
             if(tamanhoFilas(filaPartida) == 5){
-                 avioes* filaEliminar = nullptr;
-                 moverAviaoParaEliminar(filaPartida, filaEliminar);
-             }
-         }
+                avioes* filaEliminar = nullptr;
+                moverAviaoParaEliminar(filaPartida, filaEliminar);
+            }
+        }
 
     }
     cout << "Escolha uma opcao: \n";
@@ -386,6 +389,8 @@ void testeArvore(avioes* fila){
     cout << "A Arvore tem " << contaNos(raiz) << " nos" << endl;
 
 }
+
+
 
 
 

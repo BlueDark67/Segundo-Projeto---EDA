@@ -159,6 +159,23 @@ nodo* inserirNodo(nodo* no, passageiros* passageiro) {
     return no;
 }
 
+noNacionalidade* criaListaNacionalidades() {
+    string* nacionalidades = leFicheiroNacionalidade();
+    noNacionalidade* head = nullptr;
+
+    for (int i = 0; i < 21; i++) {
+        noNacionalidade* novoNo = new noNacionalidade;
+        novoNo->nacionalidade = nacionalidades[i];
+        novoNo->raiz = nullptr;
+        novoNo->next = head;
+        head = novoNo;
+    }
+
+    delete[] nacionalidades; // Don't forget to delete the array when you're done with it
+
+    return head;
+}
+
 nodo* criaArvore(passageiros* passageiro) {
     noNacionalidade* head = nullptr;
 
