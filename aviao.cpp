@@ -236,15 +236,15 @@ void moverAviaoParaPista(avioes*& filaChegada, avioes*& filaPista) {
     if (filaChegada != nullptr) {
         avioes* aviaoAtual = filaChegada;
         filaChegada = filaChegada->next; // Remover o avião da fila de chegada
-       /* aviaoAtual->passageiroHead = nullptr;
+        aviaoAtual->passageiroHead = nullptr;
         aviaoAtual->capacidade += 3;
         aviaoAtual->qtdPassageiros = aviaoAtual->capacidade;
-        adicionaPassageiroAviao(aviaoAtual);*/
+        adicionaPassageiroAviao(aviaoAtual);
         aviaoAtual->next = nullptr;
-       /* if(conteudoNomeVoo!= nullptr) {
+        if(conteudoNomeVoo!= nullptr) {
             aviaoAtual->nomeVoo = conteudoNomeVoo[rand() % 81];
             delete[] conteudoNomeVoo;
-        }*/
+        }
         // Adicionar o avião à fila de pista
         if (filaPista == nullptr) {
             filaPista = aviaoAtual;
@@ -255,8 +255,6 @@ void moverAviaoParaPista(avioes*& filaChegada, avioes*& filaPista) {
             }
             aux->next = aviaoAtual;
         }
-
-       // apresentaInfoTodosAvioes(filaPista);
     } else {
         cout << "Nenhum aviao em aproximação para mover para a pista." << endl;
     }
@@ -292,7 +290,6 @@ void moverAviaoParaPartida(avioes*& filaPista, avioes*& filaPartida) {
             }
             aux->next = aviaoAtual;
         }
-       // apresentaInfoTodosAvioes(filaPartida);
     } else {
         cout << "Nenhum aviao em pista para Partir ." << endl;
     }
