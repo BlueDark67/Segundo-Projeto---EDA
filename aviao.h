@@ -31,6 +31,7 @@ avioes* adicionaAvioes(avioes* head, string nomeVoo, string modelo, string orige
 avioes* criaAvioes();
 avioes* adicionaAviaoFilaChegada(avioes* head, avioes* aviao);
 avioes* adicionaAviaoFilaChegada2(avioes*& head, avioes* aviao);
+avioes* aviaoEmEmergencia(avioes* aviao);
 
 void adicionaPassageiroAviao(avioes* aviao);
 void apresentaInfoTodosAvioes(avioes* head);

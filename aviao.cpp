@@ -387,7 +387,18 @@ void testeArvore(avioes* fila){
 
 }
 
+avioes* aviaoEmEmergencia(avioes* aviao){
+    string resposta;
+    cout << "qual o nome do aviao que esta em emergencia?" << endl;
+    cin >> resposta;
+    avioes* aux = aviao;
+    while(aux->next != nullptr && aux->nomeVoo != resposta){
 
+    }
+
+
+
+}
 
 
 

@@ -20,15 +20,13 @@ using namespace std;
 int main(int argc, char const* argv[]) {
     srand(time(0));
     string resposta;
-    bool emergencia = false;
-
+    bool emergenciaAviao = false;
+    bool emergenciaAeroporto = false;
+    int ciclos;
     avioes *filaChegada = nullptr;
     avioes *filaPista = nullptr;
     avioes *filaPartida = nullptr;
-
     noNacionalidade* listaNacionalidades = criaListaNacionalidades();
-
-
     if(argc==1) {
         for (int i = 0; i < 10; i++) {
             avioes *novoAviaoChegada = criaAvioes();
@@ -52,11 +50,38 @@ int main(int argc, char const* argv[]) {
 
         cin >> resposta;
         if (resposta == "e" || resposta == "E") {// Se a resposta for g
-            emergencia = true;
+            string resposta2;
+            cout << "Menu Emergencia" << endl;
+            cout << "1 - Aviao com emergencia" << endl;
+            cout << "2 - Fechar Aeroporto" << endl;
+            do {
+                cin >> resposta2;
+                if(resposta2 == "1"){
+                    emergenciaAviao = true;
+                    break;
+                }
+                if(resposta2 == "2") {
+                    cout << "Quer fechar o aeroporto durante quantos ciclos?" << endl;
+                    cin >> ciclos;
+                    cout << "Aeoporto fechado durante " << ciclos << " ciclos" << endl;
+                    emergenciaAeroporto = true;
+                    break;
+                }
+            } while (resposta2 != "1" || resposta2 != "2");
+            cout << "(e)mergencia (o)pcoes (g)ravar (s)proximo ciclo\n";
         } else if (resposta == "s" || resposta == "S") {// Se a resposta for s
-            if(emergencia == true){
-                cout << "Aviso de emergencia" << endl;
-                emergencia = false;
+            if(emergenciaAviao == true || emergenciaAeroporto == true){
+                if(emergenciaAviao == true){
+                    cout << "Aviao com emergencia" << endl;
+                    emergenciaAviao = false;
+                }
+                if(emergenciaAeroporto == true && ciclos > 0){
+                    cout << "Aeroporto fechado durante " << ciclos << "ciclos" << endl;
+                    ciclos--;
+                }
+                if(ciclos == 0){
+                    emergenciaAeroporto = false;
+                }
             } else {
                 simularCiclo(filaChegada, filaPista ,filaPartida);
             }
