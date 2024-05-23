@@ -25,7 +25,7 @@ struct nodo{
 };
 
 struct noNacionalidade{
-    string nacionalidade;
+    string* nacionalidade;
     nodo* raiz;
     struct noNacionalidade* next;
 };
@@ -41,14 +41,12 @@ passageiros* adicionaPassageiroFila(passageiros* head, passageiros* passageiro);
 nodo* novoNodo(passageiros* passageiro);
 nodo* inserirNodo(nodo* no, passageiros* passageiro);
 nodo* criaArvore(passageiros* passageiro);
+noNacionalidade* criaListaNacionalide(noNacionalidade* no, nodo* raiz);
 
-noNacionalidade* insereNoNacionalidade(noNacionalidade* no, string nacionalidade, nodo* raiz);
-noNacionalidade* criaListaNacionalidades();
-
-void imprimeArvore(nodo* no, int nivel);
-
+void imprimeArvore(nodo* no, int profundidade);
 
 int altura(nodo* no);
 int contaNos(nodo* no);
+
 
 #endif //SEGUNDO_PROJETO_EDA_PASSAGEIROS_H

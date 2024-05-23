@@ -159,24 +159,7 @@ nodo* inserirNodo(nodo* no, passageiros* passageiro) {
     return no;
 }
 
-noNacionalidade* criaListaNacionalidades() {
-    string* nacionalidades = leFicheiroNacionalidade();
-    noNacionalidade* head = nullptr;
-
-    for (int i = 0; i < 21; i++) {
-        noNacionalidade* novoNo = new noNacionalidade;
-        novoNo->nacionalidade = nacionalidades[i];
-        novoNo->raiz = nullptr;
-        novoNo->next = head;
-        head = novoNo;
-    }
-
-    delete[] nacionalidades; // Don't forget to delete the array when you're done with it
-
-    return head;
-}
-
-nodo* criaArvore(passageiros* passageiro) {
+/*nodo* criaArvore(passageiros* passageiro) {
     noNacionalidade* head = nullptr;
 
     // Percorre a lista de passageiros para extrair as nacionalidades únicas
@@ -208,31 +191,47 @@ nodo* criaArvore(passageiros* passageiro) {
     } else {
         return nullptr; // Retorna nullptr se a lista de passageiros estiver vazia
     }
+}*/
+
+noNacionalidade* criaListaNacionalide(noNacionalidade* no, nodo* raiz){
+    string* nacionalidades = leFicheiroNacionalidade();
+    string nacionalidade;
+    noNacionalidade* listaNacionalidade = nullptr;
+    noNacionalidade* ultimoNo = nullptr;
+    for(int i = 0; i < 20; i++){
+        noNacionalidade* novoNo = new noNacionalidade;
+        novoNo->nacionalidade = new string(nacionalidades[i]);
+        novoNo->raiz = raiz;
+        novoNo->next = nullptr;
+        if(listaNacionalidade == nullptr){
+            listaNacionalidade = novoNo;
+        }else{
+            ultimoNo->next = novoNo;
+        }
+        ultimoNo = novoNo;
+    }
+    delete[] nacionalidades;
+    return listaNacionalidade;
 }
 
-noNacionalidade* insereNoNacionalidade(noNacionalidade* no, string nacionalidade, nodo* raiz){
-    noNacionalidade* novoNo = new noNacionalidade;
-    novoNo->nacionalidade = nacionalidade;
-    novoNo->raiz = raiz;
-    novoNo->next = no;
-    return novoNo;
-}
 
-void imprimeArvore(nodo* no, int nivel){
+void imprimeArvore(nodo* no, int profundidade) {
     if (no == nullptr) {
-        //cout << "Arvore vazia" << endl;
         return;
     }
 
-    cout << "Nacionalidade: " << no->passageiro->nacionalidade << endl;
-    imprimeArvore(no->pDireita, nivel + 1);
-    for (int i = 0; i < nivel; i++) {
-        cout << "\t";
-    }
-    cout << no->passageiro->primeiroNome << no->passageiro->ultimoNome << endl;
-    imprimeArvore(no->pEsquerda, nivel + 1);
-}
+    imprimeArvore(no->pDireita, profundidade + 1); // Visita o nó direito primeiro
 
+    // Imprime espaços em branco de acordo com a profundidade do nó
+    for(int i = 0; i < profundidade; i++) {
+        cout << "             ";
+    }
+
+    // Imprime o nome do passageiro
+    cout << no->passageiro->primeiroNome<< no->passageiro->ultimoNome << endl;
+
+    imprimeArvore(no->pEsquerda, profundidade + 1); // Visita o nó esquerdo
+}
 int altura(nodo* no){
     if (no == nullptr) {
         return 0;
@@ -254,4 +253,3 @@ int contaNos(nodo* no){
         return 1 + contaNos(no->pEsquerda) + contaNos(no->pDireita);
     }
 }
-

@@ -111,9 +111,10 @@ avioes* criaAvioes(){
     string* conteudoNomeVoo = leFicheiroNomeVoo();
     string* conteudoModeloAviao = leFicheiroModeloAviao();
     string* conteudoOrigem = leFicheiroOrigem();
-    string nomeVoo = conteudoNomeVoo[rand()%81];
-    string modelo = conteudoModeloAviao[rand()%33];
-    string origem = conteudoOrigem[rand()%26];
+
+    string nomeVoo = conteudoNomeVoo[rand()%80];
+    string modelo = conteudoModeloAviao[rand()%32];
+    string origem = conteudoOrigem[rand()%25];
     string destino = "Aeroporto EDA";
     int Capacidade = rand() % 6 + 10;
     int qtdPassageiros = Capacidade;
@@ -155,9 +156,7 @@ void apresentaInfoTodosAvioes(avioes* head) {
         cout << "Modelo: " << aviao->modelo << endl;
         cout << "Origem: " << aviao->origem << endl;
         cout << "Destino: " << aviao->destino << endl;
-        if(aviao->passageiroHead != nullptr){
-            apresentaPassageiros(aviao);
-        }
+        apresentaPassageiros(aviao);
         cout <<  endl;
         aux = aux->next;
     }
@@ -190,7 +189,8 @@ void apresentaPassageiros(avioes* aviao){
  * @return - lista de aviões com o novo avião
  */
 avioes* adicionaAviaoFilaChegada(avioes* head, avioes* aviao){
-    avioes* novoNode = aviao;
+    avioes* novoNode = new avioes;
+    novoNode = aviao;
     novoNode->next = nullptr;
     if (head == nullptr){
         head = novoNode;
@@ -211,7 +211,8 @@ avioes* adicionaAviaoFilaChegada(avioes* head, avioes* aviao){
  * @return - lista de aviões com o novo avião
  */
 avioes* adicionaAviaoFilaChegada2(avioes*& head, avioes* aviao){
-    avioes* novoNode = aviao;
+    avioes* novoNode = new avioes;
+    novoNode = aviao;
     novoNode->next = nullptr;
     if (head == nullptr){
         head = novoNode;
@@ -230,16 +231,13 @@ avioes* adicionaAviaoFilaChegada2(avioes*& head, avioes* aviao){
  * @param filaChegada - fila de chegada
  * @param filaPista - fila de pista
  */
-void moverAviaoParaPista(avioes*& filaChegada, avioes*& filaPista) {
+void moverAviaoParaPista(avioes*& filaChegada, avioes*& filaPista, noNacionalidade*& listaNacionalidades) {
     string* conteudoNomeVoo = leFicheiroNomeVoo();
     passageiros* passageirosAeroporto = nullptr;
     if (filaChegada != nullptr) {
         avioes* aviaoAtual = filaChegada;
         filaChegada = filaChegada->next; // Remover o avião da fila de chegada
-        aviaoAtual->passageiroHead = nullptr;
-        aviaoAtual->capacidade += 3;
-        aviaoAtual->qtdPassageiros = aviaoAtual->capacidade;
-        adicionaPassageiroAviao(aviaoAtual);
+        inserePassageiroNaArvore(listaNacionalidades, aviaoAtual);
         aviaoAtual->next = nullptr;
         if(conteudoNomeVoo!= nullptr) {
             aviaoAtual->nomeVoo = conteudoNomeVoo[rand() % 81];
@@ -326,10 +324,9 @@ void moverAviaoParaEliminar(avioes*& filaPartida, avioes*& filaEliminar) {
  * @param filaPista - fila de pista
  * @param filaPartida - fila de partida
  */
-void simularCiclo(avioes*& filaChegada, avioes*& filaPista, avioes *& filaPartida) {
-
+void simularCiclo(avioes*& filaChegada, avioes*& filaPista, avioes *& filaPartida, noNacionalidade*& listaNacionalidade) {
     if(tamanhoFilas(filaChegada) == 10){
-        moverAviaoParaPista(filaChegada, filaPista);
+        moverAviaoParaPista(filaChegada, filaPista, listaNacionalidade);
         cout << "----------------------------" << endl;
         cout << "-------Avioes em chegada------" << endl;
         cout << "----------------------------" << endl;
@@ -370,33 +367,29 @@ int tamanhoFilas(avioes* head){
     return tamanho;
 }
 
-void testeArvore(avioes* fila){
-    if(fila == nullptr){
-        cout << "Fila vazia" << endl;
-        return;
+void inserePassageiroNaArvore(noNacionalidade*& listaNacionalidades, avioes*& aviao) {
+    passageiros* passageiro = aviao->passageiroHead;
+    while (passageiro != nullptr) {
+        noNacionalidade* aux = listaNacionalidades;
+        while (aux != nullptr) {
+            if (*(aux->nacionalidade) == passageiro->nacionalidade) {
+                aux->raiz = inserirNodo(aux->raiz, passageiro);
+                break;
+            }
+            aux = aux->next;
+        }
+        passageiro = passageiro->next;
     }
-    nodo* raiz = criaArvore(fila->passageiroHead);
-    passageiros* passageiroAtual = fila->passageiroHead;
-    while(passageiroAtual != nullptr){
-        raiz = inserirNodo(raiz, passageiroAtual);
-        passageiroAtual = passageiroAtual->next;
-    }
-    imprimeArvore(raiz, 1);
-    cout << "A altura da Arvore e: " << altura(raiz) << endl;
-    cout << "A Arvore tem " << contaNos(raiz) << " nos" << endl;
-
+    aviao->passageiroHead = nullptr;
+    adicionaPassageiroAviao(aviao);
 }
 
-avioes* aviaoEmEmergencia(avioes* aviao){
-    string resposta;
-    cout << "qual o nome do aviao que esta em emergencia?" << endl;
-    cin >> resposta;
-    avioes* aux = aviao;
-    while(aux->next != nullptr && aux->nomeVoo != resposta){
-
+void insereTodosPassageirosNaArvore(noNacionalidade* listaNacionalidades, avioes* filaPista) {
+    avioes* aviaoAtual = filaPista;
+    while(aviaoAtual != nullptr) {
+        inserePassageiroNaArvore(listaNacionalidades, aviaoAtual);
+        aviaoAtual = aviaoAtual->next;
     }
-
-
 
 }
 

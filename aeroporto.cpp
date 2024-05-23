@@ -197,7 +197,8 @@ void leFicheiroA(string nome1, avioes*& filaRetirada){
             string aux3;
             getline(ficheiro, aux3, '|');
             int aux4 = stoi(aux3);
-            avioes* aux = adicionaAvioes(filaRetirada, nomeVoo, modelo, origem, destino, aux2, aux4);
+            avioes* aux = nullptr;
+            aux = adicionaAvioes(filaRetirada, nomeVoo, modelo, origem, destino, aux2, aux4);
             filaRetirada = adicionaAviaoFilaChegada2(filaRetirada, aux);
             i++;
         }

@@ -26,7 +26,9 @@ int main(int argc, char const* argv[]) {
     avioes *filaChegada = nullptr;
     avioes *filaPista = nullptr;
     avioes *filaPartida = nullptr;
-    noNacionalidade* listaNacionalidades = criaListaNacionalidades();
+    nodo* raiz = nullptr;
+    noNacionalidade* listaNacionalidades = criaListaNacionalide(nullptr,raiz);
+
     if(argc==1) {
         for (int i = 0; i < 10; i++) {
             avioes *novoAviaoChegada = criaAvioes();
@@ -44,7 +46,7 @@ int main(int argc, char const* argv[]) {
     }
 
     apresentaInfoTodosAvioes(filaChegada);
-    cout << "Escolha um: \n";
+    cout << "Escolha uma opcao: \n";
     cout << "(e)mergencia (o)pcoes (g)ravar (s)proximo ciclo\n";
     do {
 
@@ -68,7 +70,6 @@ int main(int argc, char const* argv[]) {
                     break;
                 }
             } while (resposta2 != "1" || resposta2 != "2");
-            cout << "(e)mergencia (o)pcoes (g)ravar (s)proximo ciclo\n";
         } else if (resposta == "s" || resposta == "S") {// Se a resposta for s
             if(emergenciaAviao == true || emergenciaAeroporto == true){
                 if(emergenciaAviao == true){
@@ -83,13 +84,38 @@ int main(int argc, char const* argv[]) {
                     emergenciaAeroporto = false;
                 }
             } else {
-                simularCiclo(filaChegada, filaPista ,filaPartida);
+                simularCiclo(filaChegada, filaPista ,filaPartida, listaNacionalidades);
             }
         } else if (resposta == "o" || resposta == "O") { // Se a resposta for O
-            testeArvore(filaPista);
-            //alterar a lista ligada para ser a dos que foi retirado do txt
-            //Só estrageiros (Portugues nao entra)
-            //corrigir as arvores para integrar todos os avioes da fila pista
+            string resposta3;
+            cout << "Menu Opcoes" << endl;
+            cout << "1 - Mostrar todos os passageiros em pista" << endl;
+            cout << "2 - Mostrar passageiros por ordem alfabetica" << endl;
+            cout << "3 - Mostra arvore de passageiros por nacionalidade" << endl;
+            cout << "4 - Pesquisar passageiro" << endl;
+            cout << "5 - Editar a nacionalidade de um passageiro" << endl;
+            cout << "0 - Sair" << endl;
+            do {
+                cin >> resposta3;
+                if (resposta3 == "1") {
+                    break;
+                } else if (resposta3 == "2") {
+                    break;
+                } else if (resposta3 == "3") {
+                    noNacionalidade *aux = listaNacionalidades;
+                    while (aux != nullptr) {
+                        cout << "Nacionalidade: " << *(aux->nacionalidade) << endl;
+                        imprimeArvore(aux->raiz, 0);
+                        aux = aux->next;
+                    }
+                    break;
+                } else if (resposta3 == "4") {
+                    break;
+                } else if (resposta3 == "5") {
+                    break;
+                }
+            }while (resposta3 != "0");
+
         } else if (resposta == "g" || resposta == "G") {
             GuardaDadosAeroporto(filaChegada,filaPista,filaPartida);
         }else{

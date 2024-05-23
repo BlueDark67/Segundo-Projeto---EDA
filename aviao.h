@@ -31,17 +31,17 @@ avioes* adicionaAvioes(avioes* head, string nomeVoo, string modelo, string orige
 avioes* criaAvioes();
 avioes* adicionaAviaoFilaChegada(avioes* head, avioes* aviao);
 avioes* adicionaAviaoFilaChegada2(avioes*& head, avioes* aviao);
-avioes* aviaoEmEmergencia(avioes* aviao);
 
 void adicionaPassageiroAviao(avioes* aviao);
 void apresentaInfoTodosAvioes(avioes* head);
 void apresentaPassageiros(avioes* aviao);
-void moverAviaoParaPista(avioes*& filaChegada, avioes*& filaPista);
+void moverAviaoParaPista(avioes*& filaChegada, avioes*& filaPista, noNacionalidade*& listaNacionalidades);
 void moverAviaoParaPartida(avioes*&filaPista,avioes *&filaPartida);
-void simularCiclo(avioes*& filaChegada, avioes*& filaPista, avioes *& filaPartida);
+void simularCiclo(avioes*& filaChegada, avioes*& filaPista, avioes *& filaPartida, noNacionalidade*& listaNacionalidades);
 void moverAviaoParaEliminar(avioes*& filaPista, avioes*& filaEliminar);
 void adicionaPassageiroAviao2(avioes* aviao, passageiros* passageiro);
-void testeArvore(avioes* fila);
+void inserePassageiroNaArvore(noNacionalidade*& listaNacionalidades, avioes*& aviao);
+void insereTodosPassageirosNaArvore(noNacionalidade* listaNacionalidades, avioes* filaPista);
 
 int tamanhoFilas(avioes* head);
 
