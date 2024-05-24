@@ -598,6 +598,10 @@ void editarNacionalidadePassageiro(avioes* fila){
 
 }
 
+/**
+ * Função que edita o nome de um passageiro
+ * @param fila - fila de aviões
+ */
 void invertePrioridade(avioes*& fila) {
     avioes* anterior = nullptr;
     avioes* atual = fila;
@@ -613,6 +617,10 @@ void invertePrioridade(avioes*& fila) {
     fila = anterior;
 }
 
+/**
+ * Função que edita o nome de um passageiro
+ * @param fila - fila de aviões
+ */
 void moverAviaoEmergenciaParaPista(avioes*& filaChegada, avioes*& filaPista, avioes*& filaPartida) {
     string nomeVoo;
     cout << "Introduza o nome do voo em emergencia: ";

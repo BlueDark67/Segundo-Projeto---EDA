@@ -247,6 +247,9 @@ void leFicheiroP(string nome2, avioes*& filaRetirada){
     ficheiro.close();
 }
 
+/**
+ * Função que apresenta o menu do aeroporto
+ */
 void apresentaMenuAeroporto(){
     cout << "***************************\n";
     cout << "***** Menu aeroporto: ***** \n";
@@ -258,6 +261,10 @@ void apresentaMenuAeroporto(){
     cout << endl;
     cout << "*****************************\n";
 }
+
+/**
+ * Função que apresenta o menu de emergencia
+ */
 void apresentaMenuEmergencia(){
     cout << "Menu de Emergencia" << endl;
     cout << "1 - Aviao com emergencia" << endl;
@@ -266,6 +273,9 @@ void apresentaMenuEmergencia(){
 
 }
 
+/**
+ * Função que apresenta o menu de opcoes
+ */
 void apresentaMenuOpcoes(){
     cout << "Menu Opcoes" << endl;
     cout << "1 - Mostrar todos os passageiros em pista" << endl;
@@ -277,6 +287,11 @@ void apresentaMenuOpcoes(){
 
 }
 
+/**
+ * Funçao que verifica se uma string é um número
+ * @param s - string que verifica se é um número
+ * @return True se for numero e False se nao for
+ */
 bool isNumber(const string& s){
     try
     {

@@ -119,6 +119,11 @@ passageiros* adicionaPassageiroFila(passageiros* head, passageiros* passageiro) 
     }
 }
 
+/**
+ * Função que insere um passageiro da árvore
+ * @param raiz - raiz da árvore
+ * @return - passageiro inserido
+ */
 nodo* novoNodo(passageiros* passageiro){
     nodo* no = new nodo;
     no->passageiro = passageiro;
@@ -127,6 +132,12 @@ nodo* novoNodo(passageiros* passageiro){
     return no;
 }
 
+/**
+ * Função que insere um novo nodo na árvore
+ * @param no - raiz da árvore
+ * @param passageiro - passageiro a adicionar
+ * @return - raiz da árvore
+ */
 nodo* inserirNodo(nodo* no, passageiros* passageiro) {
     if (no == nullptr) {
         no = novoNodo(passageiro);
@@ -159,40 +170,11 @@ nodo* inserirNodo(nodo* no, passageiros* passageiro) {
     return no;
 }
 
-/*nodo* criaArvore(passageiros* passageiro) {
-    noNacionalidade* head = nullptr;
-
-    // Percorre a lista de passageiros para extrair as nacionalidades únicas
-    while (passageiro != nullptr) {
-        bool existe = false;
-        noNacionalidade* temp = head;
-        while (temp != nullptr) {
-            if (temp->nacionalidade == passageiro->nacionalidade) {
-                existe = true;
-                break;
-            }
-            temp = temp->next;
-        }
-
-        if (!existe) {
-            // Cria uma nova árvore para essa nacionalidade
-            nodo* raiz = nullptr;
-            raiz = inserirNodo(raiz, passageiro); // Insira aqui a lógica para inserir o primeiro nodo na árvore
-            // Insere a nacionalidade na lista ligada
-            head = insereNoNacionalidade(head, passageiro->nacionalidade, raiz);
-        }
-
-        passageiro = passageiro->next;
-    }
-
-    // Retorna o ponteiro para a raiz da árvore da primeira nacionalidade
-    if (head != nullptr) {
-        return head->raiz;
-    } else {
-        return nullptr; // Retorna nullptr se a lista de passageiros estiver vazia
-    }
-}*/
-
+/**
+ * Função que cria uma árvore com os passageiros
+ * @param passageiro - passageiro a adicionar
+ * @return - raiz da árvore
+ */
 noNacionalidade* criaListaNacionalide(noNacionalidade* no, nodo* raiz){
     string* nacionalidades = leFicheiroNacionalidade();
     string nacionalidade;
@@ -214,7 +196,11 @@ noNacionalidade* criaListaNacionalide(noNacionalidade* no, nodo* raiz){
     return listaNacionalidade;
 }
 
-
+/**
+ * Função que imprime a árvore de passageiros
+ * @param no - raiz da árvore
+ * @param profundidade - profundidade da árvore
+ */
 void imprimeArvore(nodo* no, int profundidade) {
     if (no == nullptr) {
         return;
@@ -232,6 +218,12 @@ void imprimeArvore(nodo* no, int profundidade) {
 
     imprimeArvore(no->pEsquerda, profundidade + 1); // Visita o nó esquerdo
 }
+
+/**
+ * Função que calcula a altura da árvore
+ * @param no - raiz da árvore
+ * @return - altura da árvore
+ */
 int altura(nodo* no){
     if (no == nullptr) {
         return 0;
@@ -246,6 +238,11 @@ int altura(nodo* no){
     }
 }
 
+/**
+ * Função que conta o número de nós da árvore
+ * @param no - raiz da árvore
+ * @return - número de nós da árvore
+ */
 int contaNos(nodo* no){
     if (no == nullptr) {
         return 0;
@@ -254,6 +251,11 @@ int contaNos(nodo* no){
     }
 }
 
+/**
+ * Função que remove um passageiro da árvore
+ * @param raiz - raiz da árvore
+ * @return - passageiro removido
+ */
 passageiros* removerPassageiro(nodo*& raiz) {
     if (raiz == nullptr) {
         return nullptr;
