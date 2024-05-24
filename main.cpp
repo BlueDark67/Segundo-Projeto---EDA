@@ -89,7 +89,6 @@ int main(int argc, char const* argv[]) {
                     avioes *novoAviaoChegada2 = criaAvioes();
                     adicionaPassageiroAviao(novoAviaoChegada2);
                     filaChegada = adicionaAviaoFilaChegada(filaChegada, novoAviaoChegada2);
-                    cout << tamanhoFilas(filaChegada) << endl;
                     ciclos--;
                 }
                 if(ciclos == 0){

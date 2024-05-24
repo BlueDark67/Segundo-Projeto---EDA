@@ -637,11 +637,14 @@ void moverAviaoEmergenciaParaPista(avioes*& filaChegada, avioes*& filaPista, avi
             }
 
 
-            cout << tamanhoFilas(filaPista) << endl;
+
             if (tamanhoFilas(filaPista)==6){
+                if(tamanhoFilas(filaPartida)==4){
+                    avioes* filaEliminar = nullptr;
+                    moverAviaoParaEliminar(filaPartida, filaEliminar);
+                }
                 moverAviaoParaPartida(filaPista, filaPartida);
             }
-            cout << tamanhoFilas(filaPista) << endl;
 
             // Adicionar o avião à fila de pista
             if (filaPista == nullptr) {
@@ -653,7 +656,7 @@ void moverAviaoEmergenciaParaPista(avioes*& filaChegada, avioes*& filaPista, avi
                 }
                 aux->next = atual;
             }
-            cout << tamanhoFilas(filaPista) << endl;
+
 
 
             // Criar um novo avião e adicionar à fila de chegada
