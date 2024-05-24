@@ -247,4 +247,44 @@ void leFicheiroP(string nome2, avioes*& filaRetirada){
     ficheiro.close();
 }
 
+void apresentaMenuAeroporto(){
+    cout << "***************************\n";
+    cout << "***** Menu aeroporto: ***** \n";
+    cout << "***************************\n";
+    cout << "Escolha uma opcao: \n";
+    cout << endl;
+    cout << "E -emergencia \nO - opcoes\nG - gravar\nI- inverter prioridade\nS -proximo ciclo\n";
+    cout << "0 - Sair\n";
+    cout << endl;
+    cout << "*****************************\n";
+}
+void apresentaMenuEmergencia(){
+    cout << "Menu de Emergencia" << endl;
+    cout << "1 - Aviao com emergencia" << endl;
+    cout << "2 - Fechar Aeroporto" << endl;
+    cout << "0 - Voltar ao menu" << endl;
 
+}
+
+void apresentaMenuOpcoes(){
+    cout << "Menu Opcoes" << endl;
+    cout << "1 - Mostrar todos os passageiros em pista" << endl;
+    cout << "2 - Mostrar passageiros por ordem alfabetica" << endl;
+    cout << "3 - Mostra arvore de passageiros por nacionalidade" << endl;
+    cout << "4 - Pesquisar passageiro" << endl;
+    cout << "5 - Editar a nacionalidade de um passageiro" << endl;
+    cout << "0 - Sair" << endl;
+
+}
+
+bool isNumber(const string& s){
+    try
+    {
+        stoi(s);
+        return true;
+    }
+    catch (const invalid_argument&)
+    {
+        return false;
+    }
+}

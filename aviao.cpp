@@ -3,9 +3,12 @@
 //
 #include "passageiros.h"
 #include "aviao.h"
+#include "aeroporto.h"
 #include <fstream>
 #include <string>
 #include <stdlib.h>
+#include <set>
+#include <map>
 
 using namespace std;
 
@@ -144,6 +147,12 @@ void adicionaPassageiroAviao2(avioes* aviao, passageiros* passageiro){
     aviao->passageiroHead = adicionaPassageiroFila(aviao->passageiroHead, passageiro);
 }
 
+void adicionaPassageiroAviao3(avioes* aviao){
+    for (int i = 0; i < (aviao->capacidade-3); i++) {
+        aviao->passageiroHead = adicionaPassageiroFila(aviao->passageiroHead, criaPassageiros());
+    }
+}
+
 /**
  * Função que apresenta a informação de todos os aviões
  * @param head - cabeça da lista de aviões
@@ -262,6 +271,34 @@ void moverAviaoParaPista(avioes*& filaChegada, avioes*& filaPista, noNacionalida
 
 }
 
+void moverAviaoParaPista2(avioes*& filaChegada, avioes*& filaPista, noNacionalidade*& listaNacionalidades) {
+    string* conteudoNomeVoo = leFicheiroNomeVoo();
+    passageiros* passageirosAeroporto = nullptr;
+    if (filaChegada != nullptr) {
+        avioes* aviaoAtual = filaChegada;
+        filaChegada = filaChegada->next; // Remover o avião da fila de chegada
+        inserePassageiroNaArvore(listaNacionalidades, aviaoAtual);
+        aviaoAtual->next = nullptr;
+        if(conteudoNomeVoo!= nullptr) {
+            aviaoAtual->nomeVoo = conteudoNomeVoo[rand() % 81];
+            delete[] conteudoNomeVoo;
+        }
+        // Adicionar o avião à fila de pista
+        if (filaPista == nullptr) {
+            filaPista = aviaoAtual;
+        } else {
+            avioes* aux = filaPista;
+            while (aux->next != nullptr) {
+                aux = aux->next;
+            }
+            aux->next = aviaoAtual;
+        }
+    } else {
+        cout << "Nenhum aviao em aproximação para mover para a pista." << endl;
+    }
+
+}
+
 /**
  * Função que move um avião da fila de pista para a partida
  * @param filaPista - fila de pista
@@ -325,31 +362,53 @@ void moverAviaoParaEliminar(avioes*& filaPartida, avioes*& filaEliminar) {
  * @param filaPartida - fila de partida
  */
 void simularCiclo(avioes*& filaChegada, avioes*& filaPista, avioes *& filaPartida, noNacionalidade*& listaNacionalidade) {
-    if(tamanhoFilas(filaChegada) == 10){
-        moverAviaoParaPista(filaChegada, filaPista, listaNacionalidade);
+    if(tamanhoFilas(filaChegada) >= 10){
+        if(tamanhoFilas(filaChegada)>=11){
+            moverAviaoParaPista2(filaChegada, filaPista, listaNacionalidade);
+            moverAviaoParaPista(filaChegada, filaPista, listaNacionalidade);
+        }else{
+            moverAviaoParaPista(filaChegada, filaPista, listaNacionalidade);
+        }
         cout << "----------------------------" << endl;
         cout << "-------Avioes em chegada------" << endl;
         cout << "----------------------------" << endl;
         apresentaInfoTodosAvioes(filaChegada);
+        if(tamanhoFilas(filaPista)<7){
         cout << "----------------------------" << endl;
         cout << "------Avioes em Pista-------" << endl;
         cout << "----------------------------" << endl;
         apresentaInfoTodosAvioes(filaPista);
-        if(tamanhoFilas(filaPista) == 7) {
-            moverAviaoParaPartida(filaPista, filaPartida);
+        }
+        if(tamanhoFilas(filaPista) >= 7) {
+            if(tamanhoFilas(filaChegada) >= 11) {
+                moverAviaoParaPartida(filaPista, filaPartida);
+                moverAviaoParaPartida(filaPista, filaPartida);
+            }else{
+                moverAviaoParaPartida(filaPista, filaPartida);
+            }
             cout << "----------------------------" << endl;
-            cout << "------Avioes a Partir-------" << endl;
+            cout << "------Avioes em Pista-------" << endl;
             cout << "----------------------------" << endl;
-            apresentaInfoTodosAvioes(filaPartida);
+            apresentaInfoTodosAvioes(filaPista);
+            if(tamanhoFilas(filaPartida)<5) {
+                cout << "----------------------------" << endl;
+                cout << "------Avioes a Partir-------" << endl;
+                cout << "----------------------------" << endl;
+                apresentaInfoTodosAvioes(filaPartida);
+            }
             if(tamanhoFilas(filaPartida) == 5){
                 avioes* filaEliminar = nullptr;
                 moverAviaoParaEliminar(filaPartida, filaEliminar);
+                cout << "----------------------------" << endl;
+                cout << "------Avioes a Partir-------" << endl;
+                cout << "----------------------------" << endl;
+                apresentaInfoTodosAvioes(filaPartida);
+
             }
         }
 
     }
-    cout << "Escolha uma opcao: \n";
-    cout << "(e)mergencia (o)pcoes (g)ravar (s)proximo ciclo \n";
+    apresentaMenuAeroporto();
 }
 
 /**
@@ -381,7 +440,15 @@ void inserePassageiroNaArvore(noNacionalidade*& listaNacionalidades, avioes*& av
         passageiro = passageiro->next;
     }
     aviao->passageiroHead = nullptr;
-    adicionaPassageiroAviao(aviao);
+    adicionaPassageiroAviao3(aviao);
+    noNacionalidade* aux = listaNacionalidades;
+    while (aux != nullptr) {
+        passageiros* passageiro = removerPassageiro(aux->raiz);
+        if (passageiro != nullptr) {
+            adicionaPassageiroAviao2(aviao, passageiro);
+        }
+        aux = aux->next;
+    }
 }
 
 void insereTodosPassageirosNaArvore(noNacionalidade* listaNacionalidades, avioes* filaPista) {
@@ -393,7 +460,233 @@ void insereTodosPassageirosNaArvore(noNacionalidade* listaNacionalidades, avioes
 
 }
 
+void mostrarPassageiros(avioes* fila){
+    avioes* aux = fila;
+    cout << "Passageiros: ";
+    while(aux != nullptr) {
+        passageiros *aux2 = aux->passageiroHead;
+        int i = 0;
+        while (aux2 != nullptr && i <= fila->qtdPassageiros && aux != nullptr){
+            if (i + 1 == fila->qtdPassageiros) {
+                cout << aux2->primeiroNome;
+                break;
+            } else {
+                cout << aux2->primeiroNome << ", ";
+                aux2 = aux2->next;
+                i++;
+            }
+        }
+        cout << endl;
+        aux = aux->next;
+    }
+}
+
+void mostrarPassageirosOrdemAlfabetica(avioes* fila){
+    map<string, multiset<string>> nomesOrdenadosPorNacionalidade;
+    for(avioes* aux = fila; aux != nullptr; aux = aux->next){
+        for(passageiros* aux2 = aux->passageiroHead; aux2 != nullptr; aux2 = aux2->next){
+            nomesOrdenadosPorNacionalidade[aux2->nacionalidade].insert(aux2->primeiroNome);
+        }
+    }
+    for(auto& nacionalidade : nomesOrdenadosPorNacionalidade){
+        cout << "Nacionalidade " << nacionalidade.first << ": ";
+        for(auto nome = nacionalidade.second.begin(); nome != nacionalidade.second.end(); nome++){
+            if(nome != prev(nacionalidade.second.end())){
+                cout << *nome << ", ";
+            }else{
+                cout << *nome;
+            }
+        }
+        cout << endl;
+    }
+
+}
+
+/**
+ * Função que pesquisa um passageiro
+ * @param filaChegada - fila de chegada
+ * @param filaPartida - fila de partida
+ */
+void pesquisarPassageiro(avioes* filaChegada, avioes* filaPartida){
+    string nome;
+    string local;
+    cout << "Introduza o nome do passageiro a pesquisar: ";
+    cin >> nome;
+    cout << "Introduza o local onde deseja pesquisar o passageiro (chegada ou partida): ";
+    cin >> local;
+    if(local == "chegada") {
+        if(tamanhoFilas(filaChegada) == 0){
+            cout << "Nao existem passageiros em fila de chegada." << endl;
+            return;
+        }else {
+            bool encontrado = false;
+            for (avioes *aux = filaChegada; aux != nullptr; aux = aux->next) {
+                for (passageiros *aux2 = aux->passageiroHead; aux2 != nullptr; aux2 = aux2->next) {
+                    if (aux2->primeiroNome == nome) {
+                        cout << "Passageiro encontrado: " << aux2->primeiroNome << " " << aux2->ultimoNome << endl;
+                        cout << "Voo :" << aux->nomeVoo << endl;
+                        cout << "Destino :" << aux->destino << endl;
+                        cout << endl;
+                        encontrado = true;
+                    }
+                }
+            }
+            if(encontrado == false){
+                cout << "Passageiro nao encontrado." << endl;
+            }
+        }
+    }else if (local == "partida") {
+        if (tamanhoFilas(filaPartida) == 0) {
+            cout << "Nao existem passageiros em fila de partida." << endl;
+            return;
+        }else {
+            bool encontrado = false;
+            for (avioes *aux = filaPartida; aux != nullptr; aux = aux->next) {
+                for (passageiros *aux2 = aux->passageiroHead; aux2 != nullptr; aux2 = aux2->next) {
+                    if (aux2->primeiroNome == nome) {
+                        cout << "Passageiro encontrado: " << aux2->primeiroNome << " " << aux2->ultimoNome << endl;
+                        cout << "Voo :" << aux->nomeVoo << endl;
+                        cout << "Destino :" << aux->destino << endl;
+                        cout << endl;
+                        encontrado = true;
+                    }
+                }
+            }
+            if(encontrado == false){
+                cout << "Passageiro nao encontrado." << endl;
+            }
+        }
+    }else {
+        cout << "Local invalido." << endl;
+    }
+}
+
+/**
+ * Função que edita a nacionalidade de um passageiro
+ * @param fila - fila de aviões
+ */
+void editarNacionalidadePassageiro(avioes* fila){
+    string nome;
+    string nomeVoo;
+    string novaNacionalidade;
+    avioes* aux = fila;
+    cout << "Introduza o nome do passageiro a editar: ";
+    cin >> nome;
+    cout << "Introduza o nome do voo do passageiro a editar: ";
+    cin >> nomeVoo;
+    cout << "Introduza a nova nacionalidade do passageiro: ";
+    cin >> novaNacionalidade;
+    while(aux != nullptr){
+        if(aux->nomeVoo == nomeVoo){
+            passageiros* aux2 = aux->passageiroHead;
+            while(aux2 != nullptr){
+                if(aux2->primeiroNome == nome){
+                    aux2->nacionalidade = novaNacionalidade;
+                    cout << "Nacionalidade do passageiro alterada com sucesso." << endl;
+                    cout << "Novos dados do passageiro: " << endl;
+                    cout << "Voo :" << aux->nomeVoo << endl;
+                    cout << "Nome: " << aux2->primeiroNome << " " << aux2->ultimoNome << endl;
+                    cout << "Nacionalidade: " << aux2->nacionalidade << endl;
+                    return;
+                }
+                aux2 = aux2->next;
+            }
+        }
+        aux = aux->next;
+    }
+    cout << "Passageiro nao encontrado." << endl;
+
+}
+
+void invertePrioridade(avioes*& fila) {
+    avioes* anterior = nullptr;
+    avioes* atual = fila;
+    avioes* proximo = nullptr;
+
+    while (atual != nullptr) {
+        proximo = atual->next;
+        atual->next = anterior;
+        anterior = atual;
+        atual = proximo;
+    }
+
+    fila = anterior;
+}
+
+void moverAviaoEmergenciaParaPista(avioes*& filaChegada, avioes*& filaPista, avioes*& filaPartida) {
+    string nomeVoo;
+    cout << "Introduza o nome do voo em emergencia: ";
+    cin >> nomeVoo;
+
+    avioes *anterior = nullptr;
+    avioes *atual = filaChegada;
+
+    while (atual != nullptr) {
+        if (atual->nomeVoo == nomeVoo) {
+            if (anterior == nullptr) {
+                filaChegada = atual->next;
+            } else {
+                anterior->next = atual->next;
+            }
+            atual->next = nullptr;
+
+            string* conteudoNomeVoo = leFicheiroNomeVoo();
+            if(conteudoNomeVoo != nullptr) {
+                atual->nomeVoo = conteudoNomeVoo[rand() % 80];
+                delete[] conteudoNomeVoo;
+            }
 
 
+            cout << tamanhoFilas(filaPista) << endl;
+            if (tamanhoFilas(filaPista)==6){
+                moverAviaoParaPartida(filaPista, filaPartida);
+            }
+            cout << tamanhoFilas(filaPista) << endl;
+
+            // Adicionar o avião à fila de pista
+            if (filaPista == nullptr) {
+                filaPista = atual;
+            } else {
+                avioes *aux = filaPista;
+                while (aux->next != nullptr) {
+                    aux = aux->next;
+                }
+                aux->next = atual;
+            }
+            cout << tamanhoFilas(filaPista) << endl;
 
 
+            // Criar um novo avião e adicionar à fila de chegada
+            avioes *novoAviao = criaAvioes();
+            adicionaPassageiroAviao(novoAviao);
+            filaChegada = adicionaAviaoFilaChegada(filaChegada, novoAviao);
+
+
+            cout << "----------------------------" << endl;
+            cout << "-------Avioes em chegada------" << endl;
+            cout << "----------------------------" << endl;
+            apresentaInfoTodosAvioes(filaChegada);
+            cout << "----------------------------" << endl;
+            cout << "------Avioes em Pista-------" << endl;
+            cout << "----------------------------" << endl;
+            apresentaInfoTodosAvioes(filaPista);
+            if(tamanhoFilas(filaPartida)!=0){
+                cout << "----------------------------" << endl;
+                cout << "------Avioes a Partir-------" << endl;
+                cout << "----------------------------" << endl;
+                apresentaInfoTodosAvioes(filaPartida);
+            }
+
+            cout << "------------------------------------------------------------------------" << endl;
+            cout << "Aviao " << nomeVoo << " movido para a pista devido a uma emergencia." << endl;
+            cout << "------------------------------------------------------------------------" << endl;
+
+            apresentaMenuAeroporto();
+            return;
+        }
+
+        anterior = atual;
+        atual = atual->next;
+    }
+
+}

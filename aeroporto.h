@@ -15,6 +15,10 @@ void carregarDadosAeroporto(avioes*& filaChegada, avioes*& filaPista, avioes*& f
 void menuG(avioes* filaChegada, avioes* filaPista, avioes* filaPartida);
 void leFicheiroA(string nome1, avioes*& filaRetirada);
 void leFicheiroP(string nome2, avioes*& filaRetirada);
+void apresentaMenuAeroporto();
+void apresentaMenuEmergencia();
+void apresentaMenuOpcoes();
+bool isNumber(const string& s);
 
 int contarLinhas(string nomeFicheiro);
 

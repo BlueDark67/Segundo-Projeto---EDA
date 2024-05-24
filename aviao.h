@@ -36,12 +36,19 @@ void adicionaPassageiroAviao(avioes* aviao);
 void apresentaInfoTodosAvioes(avioes* head);
 void apresentaPassageiros(avioes* aviao);
 void moverAviaoParaPista(avioes*& filaChegada, avioes*& filaPista, noNacionalidade*& listaNacionalidades);
+void moverAviaoParaPista2(avioes*& filaChegada, avioes*& filaPista, noNacionalidade*& listaNacionalidades);
 void moverAviaoParaPartida(avioes*&filaPista,avioes *&filaPartida);
 void simularCiclo(avioes*& filaChegada, avioes*& filaPista, avioes *& filaPartida, noNacionalidade*& listaNacionalidades);
 void moverAviaoParaEliminar(avioes*& filaPista, avioes*& filaEliminar);
 void adicionaPassageiroAviao2(avioes* aviao, passageiros* passageiro);
 void inserePassageiroNaArvore(noNacionalidade*& listaNacionalidades, avioes*& aviao);
 void insereTodosPassageirosNaArvore(noNacionalidade* listaNacionalidades, avioes* filaPista);
+void mostrarPassageiros(avioes* fila);
+void mostrarPassageirosOrdemAlfabetica(avioes* fila);
+void pesquisarPassageiro(avioes* filaChegada, avioes* filaPartida);
+void editarNacionalidadePassageiro(avioes* fila);
+void invertePrioridade(avioes*& fila);
+void moverAviaoEmergenciaParaPista(avioes*& filaChegada, avioes*& filaPista, avioes*& filaPartida);
 
 int tamanhoFilas(avioes* head);
 

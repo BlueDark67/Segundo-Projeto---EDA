@@ -20,7 +20,6 @@ using namespace std;
 int main(int argc, char const* argv[]) {
     srand(time(0));
     string resposta;
-    bool emergenciaAviao = false;
     bool emergenciaAeroporto = false;
     int ciclos;
     avioes *filaChegada = nullptr;
@@ -46,38 +45,51 @@ int main(int argc, char const* argv[]) {
     }
 
     apresentaInfoTodosAvioes(filaChegada);
-    cout << "Escolha uma opcao: \n";
-    cout << "(e)mergencia (o)pcoes (g)ravar (s)proximo ciclo\n";
+    apresentaMenuAeroporto();
     do {
-
         cin >> resposta;
         if (resposta == "e" || resposta == "E") {// Se a resposta for g
             string resposta2;
-            cout << "Menu Emergencia" << endl;
-            cout << "1 - Aviao com emergencia" << endl;
-            cout << "2 - Fechar Aeroporto" << endl;
+            apresentaMenuEmergencia();
             do {
                 cin >> resposta2;
                 if(resposta2 == "1"){
-                    emergenciaAviao = true;
+                    moverAviaoEmergenciaParaPista(filaChegada, filaPista,filaPartida);
                     break;
-                }
-                if(resposta2 == "2") {
-                    cout << "Quer fechar o aeroporto durante quantos ciclos?" << endl;
-                    cin >> ciclos;
-                    cout << "Aeoporto fechado durante " << ciclos << " ciclos" << endl;
-                    emergenciaAeroporto = true;
+                }else if(resposta2 == "2") {
+                    string cilcosEmergencia;
+                    do {
+                        cout << "Quer fechar o aeroporto durante quantos ciclos?" << endl;
+                        cin >> cilcosEmergencia;
+                        if(isNumber(cilcosEmergencia)) {
+                            ciclos = stoi(cilcosEmergencia);
+                            if (ciclos > 0 && ciclos <= 5) {
+                                cout << "Aeroporto fechado durante " << ciclos << " ciclos" << endl;
+                                emergenciaAeroporto = true;
+                                apresentaMenuAeroporto();
+                                break;
+                            } else {
+                                cout << "Numero de ciclos invalido" << endl;
+                                cout << "O aeroporto so pode ser fechado durante 1 a 5 ciclos" << endl;
+                            }
+                        }else{
+                            cout <<"Opcao invalida por favor insira um numero." << endl;
+                        }
+                    } while(ciclos <= 0 || ciclos > 5);
                     break;
+                }else if(resposta2 == "0"){
+                    apresentaMenuAeroporto();
                 }
-            } while (resposta2 != "1" || resposta2 != "2");
+
+            } while (resposta2!= "0");
         } else if (resposta == "s" || resposta == "S") {// Se a resposta for s
-            if(emergenciaAviao == true || emergenciaAeroporto == true){
-                if(emergenciaAviao == true){
-                    cout << "Aviao com emergencia" << endl;
-                    emergenciaAviao = false;
-                }
+            if( emergenciaAeroporto == true){
                 if(emergenciaAeroporto == true && ciclos > 0){
                     cout << "Aeroporto fechado durante " << ciclos << "ciclos" << endl;
+                    avioes *novoAviaoChegada2 = criaAvioes();
+                    adicionaPassageiroAviao(novoAviaoChegada2);
+                    filaChegada = adicionaAviaoFilaChegada(filaChegada, novoAviaoChegada2);
+                    cout << tamanhoFilas(filaChegada) << endl;
                     ciclos--;
                 }
                 if(ciclos == 0){
@@ -88,18 +100,16 @@ int main(int argc, char const* argv[]) {
             }
         } else if (resposta == "o" || resposta == "O") { // Se a resposta for O
             string resposta3;
-            cout << "Menu Opcoes" << endl;
-            cout << "1 - Mostrar todos os passageiros em pista" << endl;
-            cout << "2 - Mostrar passageiros por ordem alfabetica" << endl;
-            cout << "3 - Mostra arvore de passageiros por nacionalidade" << endl;
-            cout << "4 - Pesquisar passageiro" << endl;
-            cout << "5 - Editar a nacionalidade de um passageiro" << endl;
-            cout << "0 - Sair" << endl;
+            apresentaMenuOpcoes();
             do {
                 cin >> resposta3;
                 if (resposta3 == "1") {
+                    mostrarPassageiros(filaPista);
+                    cout << endl;
+                    apresentaMenuAeroporto();
                     break;
                 } else if (resposta3 == "2") {
+                    mostrarPassageirosOrdemAlfabetica(filaPista);
                     break;
                 } else if (resposta3 == "3") {
                     noNacionalidade *aux = listaNacionalidades;
@@ -110,14 +120,25 @@ int main(int argc, char const* argv[]) {
                     }
                     break;
                 } else if (resposta3 == "4") {
+                    pesquisarPassageiro(filaChegada, filaPartida);
                     break;
                 } else if (resposta3 == "5") {
+                    editarNacionalidadePassageiro(filaChegada);
                     break;
                 }
             }while (resposta3 != "0");
 
         } else if (resposta == "g" || resposta == "G") {
-            GuardaDadosAeroporto(filaChegada,filaPista,filaPartida);
+            GuardaDadosAeroporto(filaChegada, filaPista, filaPartida);
+
+        }else if(resposta == "i" || resposta == "I"){
+            cout << "Inverteu a prioridade dos avioes em pista" << endl;
+            invertePrioridade(filaPista);
+            cout << endl;
+            cout << "----------------------------" << endl;
+            cout << "------Avioes em Pista-------" << endl;
+            cout << "----------------------------" << endl;
+            apresentaInfoTodosAvioes(filaPista);
         }else{
             cout << "Escolheu a opcao sair." << endl;
         }

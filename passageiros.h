@@ -37,6 +37,7 @@ string* leFicheiroNacionalidade();
 passageiros* adicionaPassageiro(passageiros* head, string numBilhete, string primeiroNome, string ultimoNome, string nacionalidade);
 passageiros* criaPassageiros();
 passageiros* adicionaPassageiroFila(passageiros* head, passageiros* passageiro);
+passageiros* removerPassageiro(nodo*& raiz);
 
 nodo* novoNodo(passageiros* passageiro);
 nodo* inserirNodo(nodo* no, passageiros* passageiro);

@@ -253,3 +253,43 @@ int contaNos(nodo* no){
         return 1 + contaNos(no->pEsquerda) + contaNos(no->pDireita);
     }
 }
+
+passageiros* removerPassageiro(nodo*& raiz) {
+    if (raiz == nullptr) {
+        return nullptr;
+    }
+
+    passageiros* passageiroRemovido = nullptr;
+
+    if (raiz->pEsquerda == nullptr && raiz->pDireita == nullptr) {
+        passageiroRemovido = raiz->passageiro;
+        delete raiz;
+        raiz = nullptr;
+    } else if (raiz->pEsquerda != nullptr && raiz->pDireita == nullptr) {
+        passageiroRemovido = raiz->passageiro;
+        nodo* temp = raiz;
+        raiz = raiz->pEsquerda;
+        delete temp;
+    } else if (raiz->pEsquerda == nullptr && raiz->pDireita != nullptr) {
+        passageiroRemovido = raiz->passageiro;
+        nodo* temp = raiz;
+        raiz = raiz->pDireita;
+        delete temp;
+    } else {
+        nodo* temp = raiz->pEsquerda;
+        nodo* parent = raiz;
+        while (temp->pDireita != nullptr) {
+            parent = temp;
+            temp = temp->pDireita;
+        }
+        passageiroRemovido = temp->passageiro;
+        if (parent->pDireita == temp) {
+            parent->pDireita = temp->pEsquerda;
+        } else {
+            parent->pEsquerda = temp->pEsquerda;
+        }
+        delete temp;
+    }
+
+    return passageiroRemovido;
+}
